@@ -12,6 +12,8 @@ It lets you create USDT probes in runtime and fire them with the int or string a
 
 The resulting probes will be traceable by any USDT tracer, e.g. [bpftrace](https://github.com/bpftrace/bpftrace).
 
+Start with `dotnet run` and follow the instructions :)
+
 ## Prerequisites
 
 [Install libstapsdt](https://github.com/linux-usdt/libstapsdt?tab=readme-ov-file#install).
