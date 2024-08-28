@@ -20,7 +20,7 @@ try {
     }
 
     Console.WriteLine($"Ready! Trace me with:");
-    Console.WriteLine("   sudo bpftrace -p (pgrep DynamicProbes) -e 'usdt:*:myprovider:myprobe { printf(\"Fired values: %ld %lu\\n\", arg0, arg1); }'");
+    Console.WriteLine($$"""   sudo bpftrace -p {{Environment.ProcessId}} -e 'usdt:*:myprovider:myprobe { printf("Fired values: %ld %lu\n", arg0, arg1); }'""");
 
     while (true) {
         var val = ulong.MinValue;
