@@ -5,7 +5,7 @@ using ProbePtr = System.IntPtr;
 
 // Source: https://github.com/linux-usdt/libstapsdt/blob/0d53f987b0787362fd9c16a93cdad2c273d809fc/src/libstapsdt.h
 
-public static class Libstapsdt
+static class Libstapsdt
 {
     private const string LibstapsdtLibrary = "libstapsdt.so.0";
 
@@ -73,7 +73,7 @@ public static class Libstapsdt
     public static extern bool probeIsEnabled(ProbePtr probe);  // return 1 if true, 0 if false
 }
 
-public enum SDTError_t
+enum SDTError_t
 {
     NoError = -1,
     ElfCreationError = 0,
@@ -83,7 +83,7 @@ public enum SDTError_t
     SharedLibraryCloseError = 4
 }
 
-public enum ArgType_t
+enum ArgType_t
 {
     NoArg = 0,
     UInt8 = 1,
@@ -96,7 +96,7 @@ public enum ArgType_t
     Int64 = -8
 }
 
-public enum MemFDOption_t
+enum MemFDOption_t
 {
     MemfdDisabled = 0,
     MemfdEnabled = 1
@@ -105,7 +105,7 @@ public enum MemFDOption_t
 // Structs from the C header file
 
 [StructLayout(LayoutKind.Sequential)]
-public struct SDTProvider_t
+struct SDTProvider_t
 {
     public IntPtr Name;  // char*
     public IntPtr Probes; // struct SDTProbeList_t*
