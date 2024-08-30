@@ -25,6 +25,7 @@ jobs:
       - name: Install libstapsdt
         run: |
           set -euxo pipefail
+          sudo apt install libelf-dev
           cd libstapsdt
           make
           sudo make install
