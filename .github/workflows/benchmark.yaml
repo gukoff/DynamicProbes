@@ -15,12 +15,34 @@ jobs:
     name: Run Benchmark.Net benchmark example
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-dotnet@v3
+      - name: Checkout libstapsdt repo
+        uses: actions/checkout@v4
         with:
-          dotnet-version: '8.0.401'  # SDK Version to use. keep in line with examples/benchmarkdotnet/global.json
+          repository: linux-usdt/libstapsdt
+          ref: refs/heads/main
+          path: libstapsdt
+
+      - name: Install libstapsdt
+        run: |
+          set -euxo pipefail
+          cd libstapsdt
+          make
+          sudo make install
+          sudo ldconfig
+        shell: bash
+
+      - name: Checkout DynamicProbes repo
+        uses: actions/checkout@v4
+        with:
+          path: DynamicProbes
+
+      - name: Install dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.401'
+
       - name: Run benchmark
-        run: cd benchmark && dotnet run --exporters json --filter '*' -c Release
+        run: cd DynamicProbes/benchmark && dotnet run --exporters json --filter '*' -c Release
 
       # - name: Store benchmark result
       #   uses: rhysd/github-action-benchmark@v1
