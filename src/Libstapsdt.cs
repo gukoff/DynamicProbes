@@ -1,7 +1,6 @@
-﻿using System.Runtime.CompilerServices;
+﻿namespace Libstapsdt;
 
-namespace Libstapsdt;
-
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using ProbePtr = nint;
 using SdtProviderPtr = nint;
