@@ -2,6 +2,8 @@ name: Benchmark
 
 on:
   push:
+    branches:
+      - main
   pull_request:
     branches:
       - main
@@ -38,33 +40,33 @@ jobs:
           path: DynamicProbes
 
       - name: Install dotnet
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.401'
 
       - name: Run benchmark
         run: cd DynamicProbes/benchmark && dotnet run --exporters json --filter '*' -c Release
 
-      # - name: Store benchmark result
-      #   uses: rhysd/github-action-benchmark@v1
-      #   with:
-      #     name: Benchmark.Net Benchmark
-      #     tool: 'benchmarkdotnet'
-      #     output-file-path: examples/benchmarkdotnet/BenchmarkDotNet.Artifacts/results/Sample.Benchmarks-report-full-compressed.json
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
-      #     auto-push: true
-      #     # Show alert with commit comment on detecting possible performance regression
-      #     alert-threshold: '200%'
-      #     comment-on-alert: true
-      #     fail-on-alert: true
-      #     alert-comment-cc-users: '@ktrz'
+      - name: Store benchmark result
+        uses: rhysd/github-action-benchmark@v1
+        with:
+          name: Benchmark.Net Benchmark
+          tool: 'benchmarkdotnet'
+          output-file-path: DynamicProbes/benchmark/BenchmarkDotNet.Artifacts/results/Sample.Benchmarks-report-full-compressed.json
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          auto-push: true
+          # Show alert with commit comment on detecting possible performance regression
+          alert-threshold: '200%'
+          comment-on-alert: true
+          fail-on-alert: true
+          alert-comment-cc-users: '@gukoff'
 
       # - name: Store benchmark result - separate results repo
       #   uses: rhysd/github-action-benchmark@v1
       #   with:
       #     name: Benchmark.Net Benchmark
       #     tool: 'benchmarkdotnet'
-      #     output-file-path: examples/benchmarkdotnet/BenchmarkDotNet.Artifacts/results/Sample.Benchmarks-report-full-compressed.json
+      #     output-file-path: DynamicProbes/benchmark/BenchmarkDotNet.Artifacts/results/Sample.Benchmarks-report-full-compressed.json
       #     github-token: ${{ secrets.BENCHMARK_ACTION_BOT_TOKEN }}
       #     auto-push: true
       #     # Show alert with commit comment on detecting possible performance regression
