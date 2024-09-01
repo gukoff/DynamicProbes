@@ -5,9 +5,10 @@ using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Running;
 using Libstapsdt;
 
+[JsonExporterAttribute.Full]
+[JsonExporterAttribute.FullCompressed]
 [SimpleJob(RuntimeMoniker.Net80, baseline: true)]
 [SimpleJob(RuntimeMoniker.NativeAot80)]
-[RPlotExporter]
 public class Benchmarks
 {
     private nint provider;
