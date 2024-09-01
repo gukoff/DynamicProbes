@@ -45,9 +45,12 @@ jobs:
       - name: Run benchmark
         run: cd benchmark && dotnet run --exporters json --filter '*' -c Release
 
-      - uses: philips-labs/list-folders-action@v1
-        with:
-          path: benchmark/BenchmarkDotNet.Artifacts/results/
+      - name: list folder
+        run: |
+          ls benchmark/BenchmarkDotNet.Artifacts/results
+          echo '---'
+          ls benchmark/BenchmarkDotNet.Artifacts/results/*
+        shell: bash
 
       - name: Store benchmark result
         uses: benchmark-action/github-action-benchmark@v1
