@@ -1,76 +1,97 @@
 ﻿namespace Libstapsdt;
 
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using ProbePtr = System.IntPtr;
+using ProbePtr = nint;
+using SdtProviderPtr = nint;
 
 // Source: https://github.com/linux-usdt/libstapsdt/blob/0d53f987b0787362fd9c16a93cdad2c273d809fc/src/libstapsdt.h
 
-public static class Libstapsdt
+public static partial class Libstapsdt
 {
     private const string LibstapsdtLibrary = "libstapsdt.so.0";
 
     // P/Invoke function declarations
+    [LibraryImport(LibstapsdtLibrary, StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SdtProviderPtr providerInit(string name);
 
-    [DllImport(LibstapsdtLibrary, CallingConvention = CallingConvention.Cdecl)]
-    public static extern ref SDTProvider_t providerInit(string name);
-
-    [DllImport(LibstapsdtLibrary, CallingConvention = CallingConvention.Cdecl)]
-    public static extern int providerUseMemfd(ref SDTProvider_t provider, MemFDOption_t use_memfd);
+    [LibraryImport(LibstapsdtLibrary)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int providerUseMemfd(SdtProviderPtr provider, MemFDOption_t use_memfd);
 
     // Overloads for providerAddProbe for different argument counts
 
-    [DllImport(LibstapsdtLibrary, CallingConvention = CallingConvention.Cdecl)]
-    public static extern ProbePtr providerAddProbe(ref SDTProvider_t provider, string name, int argCount, ArgType_t arg1);
+    [LibraryImport(LibstapsdtLibrary, StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial ProbePtr providerAddProbe(SdtProviderPtr provider, string name, int argCount, ArgType_t arg1);
 
-    [DllImport(LibstapsdtLibrary, CallingConvention = CallingConvention.Cdecl)]
-    public static extern ProbePtr providerAddProbe(ref SDTProvider_t provider, string name, int argCount, ArgType_t arg1, ArgType_t arg2);
+    [LibraryImport(LibstapsdtLibrary, StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial ProbePtr providerAddProbe(SdtProviderPtr provider, string name, int argCount, ArgType_t arg1, ArgType_t arg2);
 
-    [DllImport(LibstapsdtLibrary, CallingConvention = CallingConvention.Cdecl)]
-    public static extern ProbePtr providerAddProbe(ref SDTProvider_t provider, string name, int argCount, ArgType_t arg1, ArgType_t arg2, ArgType_t arg3);
+    [LibraryImport(LibstapsdtLibrary, StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial ProbePtr providerAddProbe(SdtProviderPtr provider, string name, int argCount, ArgType_t arg1, ArgType_t arg2, ArgType_t arg3);
 
-    [DllImport(LibstapsdtLibrary, CallingConvention = CallingConvention.Cdecl)]
-    public static extern ProbePtr providerAddProbe(ref SDTProvider_t provider, string name, int argCount, ArgType_t arg1, ArgType_t arg2, ArgType_t arg3, ArgType_t arg4);
+    [LibraryImport(LibstapsdtLibrary, StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial ProbePtr providerAddProbe(SdtProviderPtr provider, string name, int argCount, ArgType_t arg1, ArgType_t arg2, ArgType_t arg3, ArgType_t arg4);
 
-    [DllImport(LibstapsdtLibrary, CallingConvention = CallingConvention.Cdecl)]
-    public static extern ProbePtr providerAddProbe(ref SDTProvider_t provider, string name, int argCount, ArgType_t arg1, ArgType_t arg2, ArgType_t arg3, ArgType_t arg4, ArgType_t arg5);
+    [LibraryImport(LibstapsdtLibrary, StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial ProbePtr providerAddProbe(SdtProviderPtr provider, string name, int argCount, ArgType_t arg1, ArgType_t arg2, ArgType_t arg3, ArgType_t arg4, ArgType_t arg5);
 
-    [DllImport(LibstapsdtLibrary, CallingConvention = CallingConvention.Cdecl)]
-    public static extern ProbePtr providerAddProbe(ref SDTProvider_t provider, string name, int argCount, ArgType_t arg1, ArgType_t arg2, ArgType_t arg3, ArgType_t arg4, ArgType_t arg5, ArgType_t arg6);
+    [LibraryImport(LibstapsdtLibrary, StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial ProbePtr providerAddProbe(SdtProviderPtr provider, string name, int argCount, ArgType_t arg1, ArgType_t arg2, ArgType_t arg3, ArgType_t arg4, ArgType_t arg5, ArgType_t arg6);
 
-    [DllImport(LibstapsdtLibrary, CallingConvention = CallingConvention.Cdecl)]
-    public static extern int providerLoad(ref SDTProvider_t provider);  // return -1 on error, 0 on success
+    [LibraryImport(LibstapsdtLibrary)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int providerLoad(SdtProviderPtr provider);  // return -1 on error, 0 on success
 
-    [DllImport(LibstapsdtLibrary, CallingConvention = CallingConvention.Cdecl)]
-    public static extern int providerUnload(ref SDTProvider_t provider);  // return -1 on error, 0 on success
+    [LibraryImport(LibstapsdtLibrary)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int providerUnload(SdtProviderPtr provider);  // return -1 on error, 0 on success
 
-    [DllImport(LibstapsdtLibrary, CallingConvention = CallingConvention.Cdecl)]
-    public static extern void providerDestroy(ref SDTProvider_t provider);
+    [LibraryImport(LibstapsdtLibrary)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void providerDestroy(SdtProviderPtr provider);
 
     // Overloads for probeFire for different argument counts
 
-    [DllImport(LibstapsdtLibrary, CallingConvention = CallingConvention.Cdecl)]
-    public static extern void probeFire(ProbePtr probe);
+    [LibraryImport(LibstapsdtLibrary)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void probeFire(ProbePtr probe);
 
-    [DllImport(LibstapsdtLibrary, CallingConvention = CallingConvention.Cdecl)]
-    public static extern void probeFire(ProbePtr probe, long arg1);
+    [LibraryImport(LibstapsdtLibrary)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void probeFire(ProbePtr probe, long arg1);
 
-    [DllImport(LibstapsdtLibrary, CallingConvention = CallingConvention.Cdecl)]
-    public static extern void probeFire(ProbePtr probe, long arg1, long arg2);
+    [LibraryImport(LibstapsdtLibrary)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void probeFire(ProbePtr probe, long arg1, long arg2);
 
-    [DllImport(LibstapsdtLibrary, CallingConvention = CallingConvention.Cdecl)]
-    public static extern void probeFire(ProbePtr probe, long arg1, long arg2, long arg3);
+    [LibraryImport(LibstapsdtLibrary)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void probeFire(ProbePtr probe, long arg1, long arg2, long arg3);
 
-    [DllImport(LibstapsdtLibrary, CallingConvention = CallingConvention.Cdecl)]
-    public static extern void probeFire(ProbePtr probe, long arg1, long arg2, long arg3, long arg4);
+    [LibraryImport(LibstapsdtLibrary)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void probeFire(ProbePtr probe, long arg1, long arg2, long arg3, long arg4);
 
-    [DllImport(LibstapsdtLibrary, CallingConvention = CallingConvention.Cdecl)]
-    public static extern void probeFire(ProbePtr probe, long arg1, long arg2, long arg3, long arg4, long arg5);
+    [LibraryImport(LibstapsdtLibrary)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void probeFire(ProbePtr probe, long arg1, long arg2, long arg3, long arg4, long arg5);
 
-    [DllImport(LibstapsdtLibrary, CallingConvention = CallingConvention.Cdecl)]
-    public static extern void probeFire(ProbePtr probe, long arg1, long arg2, long arg3, long arg4, long arg5, long arg6);
+    [LibraryImport(LibstapsdtLibrary)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void probeFire(ProbePtr probe, long arg1, long arg2, long arg3, long arg4, long arg5, long arg6);
 
-    [DllImport(LibstapsdtLibrary, CallingConvention = CallingConvention.Cdecl)]
-    public static extern bool probeIsEnabled(ProbePtr probe);  // return 1 if true, 0 if false
+    [LibraryImport(LibstapsdtLibrary)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    public static partial bool probeIsEnabled(ProbePtr probe);  // return 1 if true, 0 if false
 }
 
 public enum SDTError_t
