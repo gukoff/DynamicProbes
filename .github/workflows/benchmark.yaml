@@ -58,8 +58,9 @@ jobs:
           name: Benchmark.Net Benchmark
           tool: 'benchmarkdotnet'
           output-file-path: benchmark/BenchmarkDotNet.Artifacts/results/Benchmark.NotObservedProbeFireBenchmarks-report-full-compressed.json
+          external-data-json-path: ./cache/benchmark-data.json
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          auto-push: true
+          summary-always: true
           # Show alert with commit comment on detecting possible performance regression
           alert-threshold: '200%'
           comment-on-alert: true
