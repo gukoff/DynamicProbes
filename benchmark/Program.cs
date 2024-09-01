@@ -1,4 +1,4 @@
-namespace MyBenchmarks;
+namespace Benchmark;
 
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Jobs;
