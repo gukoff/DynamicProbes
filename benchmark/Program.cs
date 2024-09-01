@@ -9,7 +9,7 @@ using Libstapsdt;
 [JsonExporterAttribute.FullCompressed]
 [SimpleJob(RuntimeMoniker.Net80, baseline: true)]
 [SimpleJob(RuntimeMoniker.NativeAot80)]
-public class Benchmarks
+public class NotObservedProbeFireBenchmarks
 {
     private nint provider;
     private nint probe;
@@ -63,6 +63,6 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        var summary = BenchmarkRunner.Run<Benchmarks>();
+        var summary = BenchmarkRunner.Run<NotObservedProbeFireBenchmarks>();
     }
 }
