@@ -1,13 +1,12 @@
 namespace MyBenchmarks;
 
-using System.Security.Cryptography;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
 using Libstapsdt;
 
 public class Benchmarks
 {
-    private SDTProvider_t provider;
+    private nint provider;
     private nint probe;
     private readonly long arg1 = 1234567890123456789;
     private readonly long arg2 = 2234567890123456789;
@@ -20,20 +19,20 @@ public class Benchmarks
     public void GlobalSetup()
     {
         provider = Libstapsdt.providerInit("myprovider");
-        probe = Libstapsdt.providerAddProbe(ref provider, "myprobe1", 1, ArgType_t.Int64);
-        probe = Libstapsdt.providerAddProbe(ref provider, "myprobe2", 2, ArgType_t.Int64, ArgType_t.Int64);
-        probe = Libstapsdt.providerAddProbe(ref provider, "myprobe3", 3, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64);
-        probe = Libstapsdt.providerAddProbe(ref provider, "myprobe4", 4, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64);
-        probe = Libstapsdt.providerAddProbe(ref provider, "myprobe5", 5, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64);
-        probe = Libstapsdt.providerAddProbe(ref provider, "myprobe6", 6, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64);
-        _ = Libstapsdt.providerLoad(ref provider);
+        probe = Libstapsdt.providerAddProbe(provider, "myprobe1", 1, ArgType_t.Int64);
+        probe = Libstapsdt.providerAddProbe(provider, "myprobe2", 2, ArgType_t.Int64, ArgType_t.Int64);
+        probe = Libstapsdt.providerAddProbe(provider, "myprobe3", 3, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64);
+        probe = Libstapsdt.providerAddProbe(provider, "myprobe4", 4, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64);
+        probe = Libstapsdt.providerAddProbe(provider, "myprobe5", 5, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64);
+        probe = Libstapsdt.providerAddProbe(provider, "myprobe6", 6, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64);
+        _ = Libstapsdt.providerLoad(provider);
     }
 
     [GlobalCleanup]
     public void GlobalCleanup()
     {
-        _ = Libstapsdt.providerUnload(ref provider);
-        Libstapsdt.providerDestroy(ref provider);
+        _ = Libstapsdt.providerUnload(provider);
+        Libstapsdt.providerDestroy(provider);
     }
 
     [Benchmark]
