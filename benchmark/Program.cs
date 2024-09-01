@@ -5,8 +5,7 @@ using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Running;
 using Libstapsdt;
 
-[SimpleJob(RuntimeMoniker.Net481, baseline: true)]
-[SimpleJob(RuntimeMoniker.Net80)]
+[SimpleJob(RuntimeMoniker.Net80, baseline: true)]
 [SimpleJob(RuntimeMoniker.NativeAot80)]
 [RPlotExporter]
 public class Benchmarks
