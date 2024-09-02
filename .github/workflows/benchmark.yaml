@@ -41,6 +41,13 @@ jobs:
       - name: Run benchmark
         run: cd benchmark && dotnet run --exporters json --filter '*' -c Release
 
+      # Download previous benchmark result from cache (if exists)
+      - name: Download previous benchmark data
+        uses: actions/cache@v4
+        with:
+          path: ./cache
+          key: last-benchmark
+
       - name: Store benchmark result
         uses: benchmark-action/github-action-benchmark@v1
         with:
