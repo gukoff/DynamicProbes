@@ -8,10 +8,6 @@ on:
     branches:
       - main
 
-# permissions:
-#   contents: write
-#   deployments: write
-
 jobs:
   benchmark:
     name: Run Benchmark.Net benchmark example
@@ -45,13 +41,6 @@ jobs:
       - name: Run benchmark
         run: cd benchmark && dotnet run --exporters json --filter '*' -c Release
 
-      - name: list folder
-        run: |
-          ls benchmark/BenchmarkDotNet.Artifacts/results
-          echo '---'
-          ls benchmark/BenchmarkDotNet.Artifacts/results/*
-        shell: bash
-
       - name: Store benchmark result
         uses: benchmark-action/github-action-benchmark@v1
         with:
@@ -66,18 +55,3 @@ jobs:
           comment-on-alert: true
           fail-on-alert: true
           alert-comment-cc-users: '@gukoff'
-
-      # - name: Store benchmark result - separate results repo
-      #   uses: rhysd/github-action-benchmark@v1
-      #   with:
-      #     name: Benchmark.Net Benchmark
-      #     tool: 'benchmarkdotnet'
-      #     output-file-path: DynamicProbes/benchmark/BenchmarkDotNet.Artifacts/results/Sample.Benchmarks-report-full-compressed.json
-      #     github-token: ${{ secrets.BENCHMARK_ACTION_BOT_TOKEN }}
-      #     auto-push: true
-      #     # Show alert with commit comment on detecting possible performance regression
-      #     alert-threshold: '200%'
-      #     comment-on-alert: true
-      #     fail-on-alert: true
-      #     alert-comment-cc-users: '@ktrz'
-      #     gh-repository: 'github.com/benchmark-action/github-action-benchmark-results'
