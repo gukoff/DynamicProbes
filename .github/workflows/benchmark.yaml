@@ -56,6 +56,11 @@ jobs:
           path: ./cache
           key: last-benchmark
 
+      - name: PR comment with file
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          filePath: benchmark/BenchmarkDotNet.Artifacts/results/Benchmark.NotObservedProbeFireBenchmarks-report-github.md
+
       # Caveat: https://github.com/benchmark-action/github-action-benchmark?tab=readme-ov-file#caveats
       # When triggering on PRs, it's important to have this action "read-only"
       - name: Store benchmark result
