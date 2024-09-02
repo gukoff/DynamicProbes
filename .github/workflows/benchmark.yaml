@@ -8,10 +8,13 @@ on:
     branches:
       - main
 
+
 jobs:
   benchmark:
     name: Run Benchmark.Net benchmark example
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write  # in order to add a comment to PR
     steps:
       - name: Checkout libstapsdt repo
         uses: actions/checkout@v4
