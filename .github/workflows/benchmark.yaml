@@ -64,7 +64,7 @@ jobs:
       # Caveat: https://github.com/benchmark-action/github-action-benchmark?tab=readme-ov-file#caveats
       # When triggering on PRs, it's important to have this action "read-only"
       - name: Store benchmark result
-        uses: gukoff/github-action-benchmark@short-floats
+        uses: gukoff/github-action-benchmark@main
         with:
           name: Benchmark.Net Benchmark
           tool: 'benchmarkdotnet'
