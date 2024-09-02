@@ -48,6 +48,8 @@ jobs:
           path: ./cache
           key: last-benchmark
 
+      # Caveat: https://github.com/benchmark-action/github-action-benchmark?tab=readme-ov-file#caveats
+      # When triggering on PRs, it's important to have this action "read-only"
       - name: Store benchmark result
         uses: benchmark-action/github-action-benchmark@v1
         with:
@@ -57,6 +59,8 @@ jobs:
           external-data-json-path: ./cache/benchmark-data.json
           github-token: ${{ secrets.GITHUB_TOKEN }}
           summary-always: true
+          comment-always: true
+          save-data-file: ${{ github.event_name != 'pull_request' }}
           # Show alert with commit comment on detecting possible performance regression
           alert-threshold: '200%'
           comment-on-alert: true
