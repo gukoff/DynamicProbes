@@ -44,6 +44,11 @@ jobs:
       - name: Run benchmark
         run: cd benchmark && dotnet run --exporters json --filter '*' -c Release
 
+      - uses: actions/upload-artifact@v4
+        with:
+          name: results
+          path: benchmark/BenchmarkDotNet.Artifacts/results/
+
       # Download previous benchmark result from cache (if exists)
       - name: Download previous benchmark data
         uses: actions/cache@v4
