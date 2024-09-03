@@ -11,7 +11,7 @@ on:
 
 jobs:
   benchmark:
-    name: Run Benchmark.Net benchmark example
+    name: Run benchmark
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write  # in order to add a comment to PR
