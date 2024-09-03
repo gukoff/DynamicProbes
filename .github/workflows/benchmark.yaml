@@ -61,10 +61,10 @@ jobs:
       #   with:
       #     filePath: benchmark/BenchmarkDotNet.Artifacts/results/Benchmark.NotObservedProbeFireBenchmarks-report-github.md
 
-      - name: Store benchmark result
-        uses: benchmark-action/github-action-benchmark@v1
+      - name: Publish benchmark result
+        uses: benchmark-action/github-action-benchmark@master
         with:
-          name: Benchmark.Net Benchmark
+          name: Benchmark (compared to main)
           tool: 'benchmarkdotnet'
           output-file-path: benchmark/BenchmarkDotNet.Artifacts/results/Benchmark.NotObservedProbeFireBenchmarks-report-full-compressed.json
           external-data-json-path: ./cache/benchmark-data.json
