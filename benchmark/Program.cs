@@ -23,12 +23,12 @@ public class NotObservedProbeFireBenchmarks
     public void GlobalSetup()
     {
         provider = Libstapsdt.providerInit("myprovider");
-        probe = Libstapsdt.providerAddProbe(provider, "myprobe1", 1, ArgType_t.Int64);
-        probe = Libstapsdt.providerAddProbe(provider, "myprobe2", 2, ArgType_t.Int64, ArgType_t.Int64);
-        probe = Libstapsdt.providerAddProbe(provider, "myprobe3", 3, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64);
-        probe = Libstapsdt.providerAddProbe(provider, "myprobe4", 4, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64);
-        probe = Libstapsdt.providerAddProbe(provider, "myprobe5", 5, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64);
-        probe = Libstapsdt.providerAddProbe(provider, "myprobe6", 6, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64);
+        probe = Libstapsdt.providerAddProbe(provider, "myprobe1", ArgType_t.Int64);
+        probe = Libstapsdt.providerAddProbe(provider, "myprobe2", ArgType_t.Int64, ArgType_t.Int64);
+        probe = Libstapsdt.providerAddProbe(provider, "myprobe3", ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64);
+        probe = Libstapsdt.providerAddProbe(provider, "myprobe4", ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64);
+        probe = Libstapsdt.providerAddProbe(provider, "myprobe5", ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64);
+        probe = Libstapsdt.providerAddProbe(provider, "myprobe6", ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64, ArgType_t.Int64);
         _ = Libstapsdt.providerLoad(provider);
     }
 
