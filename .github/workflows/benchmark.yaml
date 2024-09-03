@@ -62,7 +62,7 @@ jobs:
       #     filePath: benchmark/BenchmarkDotNet.Artifacts/results/Benchmark.NotObservedProbeFireBenchmarks-report-github.md
 
       - name: Publish benchmark result
-        uses: benchmark-action/github-action-benchmark@master
+        uses: gukoff/github-action-benchmark@short-floats
         with:
           name: Benchmark (compared to main)
           tool: 'benchmarkdotnet'
