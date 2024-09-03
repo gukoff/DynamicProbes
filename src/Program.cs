@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Globalization;
+using System.Runtime.InteropServices;
 using Libstapsdt;
 
 
@@ -20,11 +21,20 @@ try {
     }
 
     Console.WriteLine($"Ready! Trace me with:");
-    Console.WriteLine($$"""   sudo bpftrace -p {{Environment.ProcessId}} -e 'usdt:*:myprovider:myprobe { printf("Fired values: %ld %lu\n", arg0, arg1); }'""");
+    Console.WriteLine($$"""   sudo bpftrace -p {{Environment.ProcessId}} -e 'usdt:*:myprovider:myprobe { printf("Fired values: %ld %s\n", arg0, str(arg1)); }'""");
 
     while (true) {
         var val = ulong.MinValue;
-        Libstapsdt.Libstapsdt.probeFire(probe, long.MinValue, (long)val);
+        var isoTimeString = DateTime.Now.ToString("O", CultureInfo.InvariantCulture);
+        var isoTimeStringPtr = Marshal.StringToHGlobalAnsi(isoTimeString);
+        try
+        {
+            Libstapsdt.Libstapsdt.probeFire(probe, long.MinValue, isoTimeStringPtr);
+        }
+        finally
+        {
+            Marshal.FreeHGlobal(isoTimeStringPtr);
+        }
         Console.WriteLine("Probe fired! Probe is currently {0}", Libstapsdt.Libstapsdt.probeIsEnabled(probe) ? "watched" : "not watched");
         Thread.Sleep(500);
     }
