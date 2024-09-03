@@ -7,7 +7,6 @@ using Libstapsdt;
 
 [JsonExporterAttribute.Full]
 [JsonExporterAttribute.FullCompressed]
-[SimpleJob(RuntimeMoniker.Net80, baseline: true)]
 [SimpleJob(RuntimeMoniker.NativeAot80)]
 public class NotObservedProbeFireBenchmarks
 {
