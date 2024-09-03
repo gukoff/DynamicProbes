@@ -10,7 +10,7 @@ try {
 
     //Libstapsdt.Libstapsdt.providerUseMemfd(ref provider, MemFDOption_t.MemfdEnabled);
 
-    var probe = Libstapsdt.Libstapsdt.providerAddProbe(provider, probeName, 2, ArgType_t.Int64, ArgType_t.UInt64);
+    var probe = Libstapsdt.Libstapsdt.providerAddProbe(provider, probeName, ArgType_t.Int64, ArgType_t.UInt64);
     if (probe == IntPtr.Zero) {
         throw new Exception("Could not initialize the probe");
     }

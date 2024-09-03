@@ -22,29 +22,42 @@ static partial class Libstapsdt
 
     // Overloads for providerAddProbe for different argument counts
 
-    [LibraryImport(LibstapsdtLibrary, StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial ProbePtr providerAddProbe(SdtProviderPtr provider, string name, int argCount, ArgType_t arg1);
+    public static ProbePtr providerAddProbe(SdtProviderPtr provider, string name, ArgType_t arg1) =>
+        providerAddProbe(provider, name, 1, arg1);
+    public static ProbePtr providerAddProbe(SdtProviderPtr provider, string name, ArgType_t arg1, ArgType_t arg2) =>
+        providerAddProbe(provider, name, 2, arg1, arg2);
+    public static ProbePtr providerAddProbe(SdtProviderPtr provider, string name, ArgType_t arg1, ArgType_t arg2, ArgType_t arg3) =>
+        providerAddProbe(provider, name, 3, arg1, arg2, arg3);
+    public static ProbePtr providerAddProbe(SdtProviderPtr provider, string name, ArgType_t arg1, ArgType_t arg2, ArgType_t arg3, ArgType_t arg4) =>
+        providerAddProbe(provider, name, 4, arg1, arg2, arg3, arg4);
+    public static ProbePtr providerAddProbe(SdtProviderPtr provider, string name, ArgType_t arg1, ArgType_t arg2, ArgType_t arg3, ArgType_t arg4, ArgType_t arg5) =>
+        providerAddProbe(provider, name, 5, arg1, arg2, arg3, arg4, arg5);
+    public static ProbePtr providerAddProbe(SdtProviderPtr provider, string name, ArgType_t arg1, ArgType_t arg2, ArgType_t arg3, ArgType_t arg4, ArgType_t arg5, ArgType_t arg6) =>
+        providerAddProbe(provider, name, 6, arg1, arg2, arg3, arg4, arg5, arg6);
 
     [LibraryImport(LibstapsdtLibrary, StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial ProbePtr providerAddProbe(SdtProviderPtr provider, string name, int argCount, ArgType_t arg1, ArgType_t arg2);
+    private static partial ProbePtr providerAddProbe(SdtProviderPtr provider, string name, int argCount, ArgType_t arg1);
 
     [LibraryImport(LibstapsdtLibrary, StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial ProbePtr providerAddProbe(SdtProviderPtr provider, string name, int argCount, ArgType_t arg1, ArgType_t arg2, ArgType_t arg3);
+    private static partial ProbePtr providerAddProbe(SdtProviderPtr provider, string name, int argCount, ArgType_t arg1, ArgType_t arg2);
 
     [LibraryImport(LibstapsdtLibrary, StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial ProbePtr providerAddProbe(SdtProviderPtr provider, string name, int argCount, ArgType_t arg1, ArgType_t arg2, ArgType_t arg3, ArgType_t arg4);
+    private static partial ProbePtr providerAddProbe(SdtProviderPtr provider, string name, int argCount, ArgType_t arg1, ArgType_t arg2, ArgType_t arg3);
 
     [LibraryImport(LibstapsdtLibrary, StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial ProbePtr providerAddProbe(SdtProviderPtr provider, string name, int argCount, ArgType_t arg1, ArgType_t arg2, ArgType_t arg3, ArgType_t arg4, ArgType_t arg5);
+    private static partial ProbePtr providerAddProbe(SdtProviderPtr provider, string name, int argCount, ArgType_t arg1, ArgType_t arg2, ArgType_t arg3, ArgType_t arg4);
 
     [LibraryImport(LibstapsdtLibrary, StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial ProbePtr providerAddProbe(SdtProviderPtr provider, string name, int argCount, ArgType_t arg1, ArgType_t arg2, ArgType_t arg3, ArgType_t arg4, ArgType_t arg5, ArgType_t arg6);
+    private static partial ProbePtr providerAddProbe(SdtProviderPtr provider, string name, int argCount, ArgType_t arg1, ArgType_t arg2, ArgType_t arg3, ArgType_t arg4, ArgType_t arg5);
+
+    [LibraryImport(LibstapsdtLibrary, StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    private static partial ProbePtr providerAddProbe(SdtProviderPtr provider, string name, int argCount, ArgType_t arg1, ArgType_t arg2, ArgType_t arg3, ArgType_t arg4, ArgType_t arg5, ArgType_t arg6);
 
     [LibraryImport(LibstapsdtLibrary)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
