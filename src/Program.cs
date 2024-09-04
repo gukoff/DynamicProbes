@@ -26,14 +26,14 @@ try {
     while (true) {
         var val = ulong.MinValue;
         var isoTimeString = DateTime.Now.ToString("O", CultureInfo.InvariantCulture);
-        var isoTimeStringPtr = Marshal.StringToHGlobalAnsi(isoTimeString);
+        var isoTimeStringPtr = Marshal.StringToCoTaskMemUTF8(isoTimeString);
         try
         {
             Libstapsdt.Libstapsdt.probeFire(probe, long.MinValue, isoTimeStringPtr);
         }
         finally
         {
-            Marshal.FreeHGlobal(isoTimeStringPtr);
+            Marshal.FreeCoTaskMem(isoTimeStringPtr);
         }
         Console.WriteLine("Probe fired! Probe is currently {0}", Libstapsdt.Libstapsdt.probeIsEnabled(probe) ? "watched" : "not watched");
         Thread.Sleep(500);
