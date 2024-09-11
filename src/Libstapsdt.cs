@@ -6,7 +6,10 @@ using SdtProviderPtr = nint;
 #pragma warning disable CA5392 // Use DefaultDllImportSearchPaths attribute for P/Invokes
                                // ...but it has no effect on non-Windows platforms or the Mono runtime.
 
-namespace Libstapsdt;
+#pragma warning disable CA1401 // P/Invokes should not be visible
+                               // ...the point of this library is to make P/Invokes visible.
+
+namespace LibstapsdtPinvokes;
 
 // Source: https://github.com/linux-usdt/libstapsdt/blob/0d53f987b0787362fd9c16a93cdad2c273d809fc/src/libstapsdt.h
 
@@ -125,7 +128,9 @@ enum SdtError // SDTError_t
     SharedLibraryCloseError = 4   // sharedLibraryCloseError
 }
 
-enum ArgType // ArgType_t
+
+#pragma warning disable CA1720 // Identifiers should not contain type names
+public enum ArgType // ArgType_t
 {
     NoArg = 0,  // noarg
     UInt8 = 1,  // uint8
@@ -138,7 +143,9 @@ enum ArgType // ArgType_t
     Int64 = -8  // int64
 }
 
-enum MemfdOption // MemFDOption_t
+#pragma warning restore CA1720 // Identifiers should not contain type names
+
+public enum MemfdOption // MemFDOption_t
 {
     Disabled = 0, // memfd_disabled
     Enabled = 1   // memfd_enabled

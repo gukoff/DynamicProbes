@@ -3,23 +3,22 @@
 
 using System.Globalization;
 using System.Runtime.InteropServices;
-using Libstapsdt;
-
+using LibstapsdtPinvokes;
 
 try
 {
     var providerName = "myprovider";
     var probeName = "myprobe";
 
-    var provider = Libstapsdt.Libstapsdt.ProviderInit(providerName);
+    var provider = Libstapsdt.ProviderInit(providerName);
 
-    //Libstapsdt.Libstapsdt.ProviderUseMemfd(ref provider, MemFDOption_t.MemfdEnabled);
+    _ = Libstapsdt.ProviderUseMemfd(provider, MemfdOption.Enabled);
 
-    var probe = Libstapsdt.Libstapsdt.ProviderAddProbe(provider, probeName, ArgType.Int64, ArgType.UInt64);
+    var probe = Libstapsdt.ProviderAddProbe(provider, probeName, ArgType.Int64, ArgType.UInt64);
     if (probe == IntPtr.Zero)
         throw new Exception("Could not initialize the probe");
 
-    var res = Libstapsdt.Libstapsdt.ProviderLoad(provider);
+    var res = Libstapsdt.ProviderLoad(provider);
     if (res != 0)
         throw new Exception("Could not load provider");
 
@@ -33,13 +32,13 @@ try
         var isoTimeStringPtr = Marshal.StringToCoTaskMemUTF8(isoTimeString);
         try
         {
-            Libstapsdt.Libstapsdt.ProbeFire(probe, val, isoTimeStringPtr);
+            Libstapsdt.ProbeFire(probe, val, isoTimeStringPtr);
         }
         finally
         {
             Marshal.FreeCoTaskMem(isoTimeStringPtr);
         }
-        Console.WriteLine("Probe fired! Probe is currently {0}", Libstapsdt.Libstapsdt.ProbeIsEnabled(probe) ? "watched" : "not watched");
+        Console.WriteLine("Probe fired! Probe is currently {0}", Libstapsdt.ProbeIsEnabled(probe) ? "watched" : "not watched");
         Thread.Sleep(500);
     }
 }
