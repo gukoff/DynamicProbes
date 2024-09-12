@@ -71,8 +71,7 @@ jobs:
           comment-always: true
           # Caveat: https://github.com/benchmark-action/github-action-benchmark?tab=readme-ov-file#caveats
           # When triggering on PRs, it's important to have this action "read-only"
-          # save-data-file: ${{ github.event_name != 'pull_request' }}
-          save-data-file: true
+          save-data-file: ${{ github.event_name != 'pull_request' }}
           alert-threshold: '200%'
           comment-on-alert: true
           fail-on-alert: true
