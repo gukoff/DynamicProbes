@@ -1,0 +1,4 @@
+[*Tests.cs]
+
+# CA1707: Identifiers should not contain underscores
+dotnet_code_quality.CA1707.api_surface = private, internal

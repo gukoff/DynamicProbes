@@ -10,6 +10,8 @@ namespace Libstapsdt;
 
 // Source: https://github.com/linux-usdt/libstapsdt/blob/0d53f987b0787362fd9c16a93cdad2c273d809fc/src/libstapsdt.h
 
+#if !NO_NATIVE_CODE
+
 static partial class Libstapsdt
 {
     const string LibstapsdtLibrary = "libstapsdt.so.0";
@@ -24,6 +26,9 @@ static partial class Libstapsdt
     public static partial int ProviderUseMemfd(SdtProviderPtr provider, MemfdOption option);
 
     // Overloads for providerAddProbe for different argument counts
+
+    public static ProbePtr ProviderAddProbe(SdtProviderPtr provider, string name) =>
+        ProviderAddProbe(provider, name, 0);
 
     public static ProbePtr ProviderAddProbe(SdtProviderPtr provider, string name, ArgType arg1) =>
         ProviderAddProbe(provider, name, 1, arg1);
@@ -42,6 +47,10 @@ static partial class Libstapsdt
 
     public static ProbePtr ProviderAddProbe(SdtProviderPtr provider, string name, ArgType arg1, ArgType arg2, ArgType arg3, ArgType arg4, ArgType arg5, ArgType arg6) =>
         ProviderAddProbe(provider, name, 6, arg1, arg2, arg3, arg4, arg5, arg6);
+
+    [LibraryImport(LibstapsdtLibrary, EntryPoint = "providerAddProbe", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    private static partial ProbePtr ProviderAddProbe(SdtProviderPtr provider, string name, int argCount);
 
     [LibraryImport(LibstapsdtLibrary, EntryPoint = "providerAddProbe", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -115,6 +124,8 @@ static partial class Libstapsdt
     public static partial bool ProbeIsEnabled(ProbePtr probe);  // return 1 if true, 0 if false
 }
 
+#endif // !NO_NATIVE_CODE
+
 enum SdtError // SDTError_t
 {
     NoError                 = -1, // noError
@@ -125,9 +136,10 @@ enum SdtError // SDTError_t
     SharedLibraryCloseError = 4   // sharedLibraryCloseError
 }
 
-enum ArgType // ArgType_t
+public enum ArgType // ArgType_t
 {
     NoArg = 0,  // noarg
+#pragma warning disable CA1720 // Identifier contains type name (by-design)
     UInt8 = 1,  // uint8
     Int8 = -1,  // int8
     UInt16 = 2, // uint16
@@ -136,6 +148,7 @@ enum ArgType // ArgType_t
     Int32 = -4, // int32
     UInt64 = 8, // uint64
     Int64 = -8  // int64
+#pragma warning disable CA1720 // Identifier contains type name
 }
 
 enum MemfdOption // MemFDOption_t
