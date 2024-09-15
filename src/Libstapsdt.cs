@@ -136,10 +136,9 @@ enum SdtError // SDTError_t
     SharedLibraryCloseError = 4   // sharedLibraryCloseError
 }
 
-public enum ArgType // ArgType_t
+enum ArgType // ArgType_t
 {
     NoArg = 0,  // noarg
-#pragma warning disable CA1720 // Identifier contains type name (by-design)
     UInt8 = 1,  // uint8
     Int8 = -1,  // int8
     UInt16 = 2, // uint16
@@ -148,7 +147,6 @@ public enum ArgType // ArgType_t
     Int32 = -4, // int32
     UInt64 = 8, // uint64
     Int64 = -8  // int64
-#pragma warning disable CA1720 // Identifier contains type name
 }
 
 enum MemfdOption // MemFDOption_t

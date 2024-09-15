@@ -4,7 +4,6 @@
 using System.Globalization;
 using System.Runtime.InteropServices;
 using DynamicProbes;
-using Libstapsdt;
 
 try
 {

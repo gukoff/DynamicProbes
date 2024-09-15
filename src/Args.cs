@@ -1,6 +1,19 @@
-using Libstapsdt;
-
 namespace DynamicProbes;
+
+public enum ArgType // NOTE! Keep in sync with Libstapsdt.ArgType!
+{
+    NoArg  = Libstapsdt.ArgType.NoArg,
+#pragma warning disable CA1720 // Identifier contains type name (by-design for familiarity)
+    UInt8  = Libstapsdt.ArgType.UInt8,
+    Int8   = Libstapsdt.ArgType.Int8,
+    UInt16 = Libstapsdt.ArgType.UInt16,
+    Int16  = Libstapsdt.ArgType.Int16,
+    UInt32 = Libstapsdt.ArgType.UInt32,
+    Int32  = Libstapsdt.ArgType.Int32,
+    UInt64 = Libstapsdt.ArgType.UInt64,
+    Int64  = Libstapsdt.ArgType.Int64,
+#pragma warning disable CA1720 // Identifier contains type name
+}
 
 public interface IArgType
 {

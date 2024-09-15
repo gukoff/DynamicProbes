@@ -106,7 +106,7 @@ partial class Provider
                     ts => string.Join(null, from t in ts select $"\n{indent2}where {t} : IArgType, IFireArgLong")) #>
     {
         var @this = This;
-        return new(@this, name, Libstapsdt.Libstapsdt.ProviderAddProbe(@this.ptr, name<#= string.Join(null, from t in typeParams select $", {t}.ArgType") #>));
+        return new(@this, name, Libstapsdt.Libstapsdt.ProviderAddProbe(@this.ptr, name<#= string.Join(null, from t in typeParams select $", (Libstapsdt.ArgType){t}.ArgType") #>));
     }
 }
 <#	} #>

@@ -172,7 +172,7 @@ public class ProviderTests
         Libstapsdt.Libstapsdt.Handlers = new()
         {
             ProviderInit = { Handler = ProviderInit.Return(42) },
-            ProviderAddProbe = { Handler = ProviderAddProbe.Expect(new(42, "bar", [ArgType.Int32])).Return(4242) },
+            ProviderAddProbe = { Handler = ProviderAddProbe.Expect(new(42, "bar", [Libstapsdt.ArgType.Int32])).Return(4242) },
         };
 
         var provider = Provider.Init("foo");

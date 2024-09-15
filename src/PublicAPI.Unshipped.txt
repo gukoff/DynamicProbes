@@ -1,5 +1,5 @@
 #nullable enable
-DynamicProbes.IArgType.ArgType.get -> Libstapsdt.ArgType
+DynamicProbes.IArgType.ArgType.get -> DynamicProbes.ArgType
 DynamicProbes.Int16Arg
 DynamicProbes.Int16Arg.Int16Arg() -> void
 DynamicProbes.Int16Arg.Int16Arg(short Value) -> void
@@ -59,13 +59,13 @@ override DynamicProbes.UInt16Arg.ToString() -> string!
 override DynamicProbes.UInt32Arg.ToString() -> string!
 override DynamicProbes.UInt64Arg.ToString() -> string!
 override DynamicProbes.UInt8Arg.ToString() -> string!
-static DynamicProbes.Int16Arg.ArgType.get -> Libstapsdt.ArgType
+static DynamicProbes.Int16Arg.ArgType.get -> DynamicProbes.ArgType
 static DynamicProbes.Int16Arg.implicit operator DynamicProbes.Int16Arg(short value) -> DynamicProbes.Int16Arg
-static DynamicProbes.Int32Arg.ArgType.get -> Libstapsdt.ArgType
+static DynamicProbes.Int32Arg.ArgType.get -> DynamicProbes.ArgType
 static DynamicProbes.Int32Arg.implicit operator DynamicProbes.Int32Arg(int value) -> DynamicProbes.Int32Arg
-static DynamicProbes.Int64Arg.ArgType.get -> Libstapsdt.ArgType
+static DynamicProbes.Int64Arg.ArgType.get -> DynamicProbes.ArgType
 static DynamicProbes.Int64Arg.implicit operator DynamicProbes.Int64Arg(long value) -> DynamicProbes.Int64Arg
-static DynamicProbes.Int8Arg.ArgType.get -> Libstapsdt.ArgType
+static DynamicProbes.Int8Arg.ArgType.get -> DynamicProbes.ArgType
 static DynamicProbes.Int8Arg.implicit operator DynamicProbes.Int8Arg(sbyte value) -> DynamicProbes.Int8Arg
 static DynamicProbes.Provider.Init(string! name) -> DynamicProbes.Provider!
 DynamicProbes.Provider.Dispose() -> void
@@ -127,21 +127,21 @@ DynamicProbes.Probe<T1, T2, T3, T4, T5, T6>.IsEnabled.get -> bool
 DynamicProbes.Probe<T1, T2, T3, T4, T5, T6>.Fire(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6) -> void
 DynamicProbes.Probe<T1, T2, T3, T4, T5, T6>.Active.get -> DynamicProbes.Probe<T1, T2, T3, T4, T5, T6>?
 override DynamicProbes.Probe<T1, T2, T3, T4, T5, T6>.ToString() -> string!
-Libstapsdt.ArgType
-Libstapsdt.ArgType.NoArg = 0 -> Libstapsdt.ArgType
-Libstapsdt.ArgType.UInt8 = 1 -> Libstapsdt.ArgType
-Libstapsdt.ArgType.Int8 = -1 -> Libstapsdt.ArgType
-Libstapsdt.ArgType.UInt16 = 2 -> Libstapsdt.ArgType
-Libstapsdt.ArgType.Int16 = -2 -> Libstapsdt.ArgType
-Libstapsdt.ArgType.UInt32 = 4 -> Libstapsdt.ArgType
-Libstapsdt.ArgType.Int32 = -4 -> Libstapsdt.ArgType
-Libstapsdt.ArgType.UInt64 = 8 -> Libstapsdt.ArgType
-Libstapsdt.ArgType.Int64 = -8 -> Libstapsdt.ArgType
-static DynamicProbes.UInt16Arg.ArgType.get -> Libstapsdt.ArgType
+DynamicProbes.ArgType
+DynamicProbes.ArgType.NoArg = 0 -> DynamicProbes.ArgType
+DynamicProbes.ArgType.UInt8 = 1 -> DynamicProbes.ArgType
+DynamicProbes.ArgType.Int8 = -1 -> DynamicProbes.ArgType
+DynamicProbes.ArgType.UInt16 = 2 -> DynamicProbes.ArgType
+DynamicProbes.ArgType.Int16 = -2 -> DynamicProbes.ArgType
+DynamicProbes.ArgType.UInt32 = 4 -> DynamicProbes.ArgType
+DynamicProbes.ArgType.Int32 = -4 -> DynamicProbes.ArgType
+DynamicProbes.ArgType.UInt64 = 8 -> DynamicProbes.ArgType
+DynamicProbes.ArgType.Int64 = -8 -> DynamicProbes.ArgType
+static DynamicProbes.UInt16Arg.ArgType.get -> DynamicProbes.ArgType
 static DynamicProbes.UInt16Arg.implicit operator DynamicProbes.UInt16Arg(ushort value) -> DynamicProbes.UInt16Arg
-static DynamicProbes.UInt32Arg.ArgType.get -> Libstapsdt.ArgType
+static DynamicProbes.UInt32Arg.ArgType.get -> DynamicProbes.ArgType
 static DynamicProbes.UInt32Arg.implicit operator DynamicProbes.UInt32Arg(uint value) -> DynamicProbes.UInt32Arg
-static DynamicProbes.UInt64Arg.ArgType.get -> Libstapsdt.ArgType
+static DynamicProbes.UInt64Arg.ArgType.get -> DynamicProbes.ArgType
 static DynamicProbes.UInt64Arg.implicit operator DynamicProbes.UInt64Arg(ulong value) -> DynamicProbes.UInt64Arg
-static DynamicProbes.UInt8Arg.ArgType.get -> Libstapsdt.ArgType
+static DynamicProbes.UInt8Arg.ArgType.get -> DynamicProbes.ArgType
 static DynamicProbes.UInt8Arg.implicit operator DynamicProbes.UInt8Arg(byte value) -> DynamicProbes.UInt8Arg
