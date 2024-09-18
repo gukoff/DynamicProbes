@@ -1,5 +1,15 @@
 namespace UnitTests;
 
+sealed class Ref<T>(T value)
+{
+    public T Value { get; set; } = value;
+}
+
+static class Ref
+{
+    public static Ref<T> Create<T>(T value) => new(value);
+}
+
 /// <summary>
 /// Represents the context of a <see cref="IHandler{TArgs,TResult}.Handle"/> call.
 /// </summary>
@@ -109,6 +119,15 @@ static class Handler
         Expect<TArgs, TResult>(this IPartialHandler<TArgs, TResult> handler, TArgs expected)
             where TArgs : IEquatable<TArgs> =>
         handler.Do(args => Assert.Equal(expected, args));
+
+    /// <summary>
+    /// Creates a handler that asserts whether call arguments are equal to the
+    /// expected value.
+    /// </summary>
+    public static IPartialHandler<TArgs, TResult>
+        ExpectRef<TArgs, TResult>(this IPartialHandler<TArgs, TResult> handler, Ref<TArgs> expected)
+        where TArgs : IEquatable<TArgs> =>
+        handler.Do(args => Assert.Equal(expected.Value, args));
 
     /// <summary>
     /// Creates a handler that asserts whether call arguments meet a specific

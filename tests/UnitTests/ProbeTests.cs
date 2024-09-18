@@ -12,7 +12,9 @@ public class ProbeTests
     {
         Libstapsdt.Libstapsdt.Handlers = new()
         {
-            ProviderInit = { Handler = DefaultLibstapsdtHandlers.ProviderInit.Return(42) },
+#pragma warning disable CA2000 // Dispose objects before losing scope (unmocked)
+            ProviderInit = { Handler = DefaultLibstapsdtHandlers.ProviderInit.Return(Provider.Fake(42)) },
+#pragma warning disable CA2000 // Dispose objects before losing scope
             ProviderAddProbe = { Handler = DefaultLibstapsdtHandlers.ProviderAddProbe.Return(4242) },
         };
 
@@ -29,7 +31,9 @@ public class ProbeTests
     {
         Libstapsdt.Libstapsdt.Handlers = new()
         {
-            ProviderInit = { Handler = DefaultLibstapsdtHandlers.ProviderInit.Return(42) },
+#pragma warning disable CA2000 // Dispose objects before losing scope (unmocked)
+            ProviderInit = { Handler = DefaultLibstapsdtHandlers.ProviderInit.Return(Provider.Fake(42)) },
+#pragma warning disable CA2000 // Dispose objects before losing scope
             ProviderAddProbe = { Handler = DefaultLibstapsdtHandlers.ProviderAddProbe.Return(4242) },
             ProviderLoad = { Handler = DefaultLibstapsdtHandlers.ProviderLoad.Return(0) },
             ProbeFire = { Handler = DefaultLibstapsdtHandlers.ProbeFire.Expect(new(4242, [])).Return(default) },
@@ -49,7 +53,9 @@ public class ProbeTests
     {
         Libstapsdt.Libstapsdt.Handlers = new()
         {
-            ProviderInit = { Handler = DefaultLibstapsdtHandlers.ProviderInit.Return(42) },
+#pragma warning disable CA2000 // Dispose objects before losing scope (unmocked)
+            ProviderInit = { Handler = DefaultLibstapsdtHandlers.ProviderInit.Return(Provider.Fake(42)) },
+#pragma warning disable CA2000 // Dispose objects before losing scope
             ProviderAddProbe = { Handler = DefaultLibstapsdtHandlers.ProviderAddProbe.Return(4242) },
             ProviderLoad = { Handler = DefaultLibstapsdtHandlers.ProviderLoad.Return(0) },
             ProviderUnload = { Handler = DefaultLibstapsdtHandlers.ProviderUnload.Return(0) },

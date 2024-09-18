@@ -4,16 +4,34 @@ using static Libstapsdt.DefaultLibstapsdtHandlers;
 
 namespace UnitTests;
 
+readonly record struct ReturnValue<T>(T Value)
+{
+    public override string ToString() => $"{Value}";
+
+    public static implicit operator T(ReturnValue<T> value) => value.Value;
+}
+
 #pragma warning disable CA2000 // Dispose objects before losing scope (unmocked)
 
 public class ProviderTests
 {
+    static ReturnValue<T> ReturnValue<T>(T value) => new(value);
+
+    static class Mocks
+    {
+        public static IHandler<ProviderInitArgs, Provider> ProviderInit(ReturnValue<nint> ptr) =>
+            DefaultLibstapsdtHandlers.ProviderInit.Return(Provider.Fake(ptr));
+
+        public static IHandler<ProviderInitArgs, Provider> ProviderInit(string name, ReturnValue<nint> ptr) =>
+            DefaultLibstapsdtHandlers.ProviderInit.Expect(new(name)).Return(Provider.Fake(ptr));
+    }
+
     [Fact]
     public void Init_Succeeds_When_ProviderInit_Indicates_Success()
     {
         Libstapsdt.Libstapsdt.Handlers = new()
         {
-            ProviderInit = { Handler = ProviderInit.Expect(new("foo")).Return(42) },
+            ProviderInit = { Handler = Mocks.ProviderInit("foo", ReturnValue((nint)42)) },
         };
 
         var provider = Provider.Init("foo");
@@ -26,7 +44,7 @@ public class ProviderTests
     {
         Libstapsdt.Libstapsdt.Handlers = new()
         {
-            ProviderInit = { Handler = ProviderInit.Expect(new("foo")).Return(0) },
+            ProviderInit = { Handler = Mocks.ProviderInit("foo", ReturnValue((nint)0)) },
         };
 
         static void Act() => Provider.Init("foo");
@@ -40,7 +58,7 @@ public class ProviderTests
     {
         Libstapsdt.Libstapsdt.Handlers = new()
         {
-            ProviderInit = { Handler = ProviderInit.Return(42) },
+            ProviderInit = { Handler = Mocks.ProviderInit(ReturnValue((nint)42)) },
         };
 
         var provider = Provider.Init("foo");
@@ -52,7 +70,7 @@ public class ProviderTests
     {
         Libstapsdt.Libstapsdt.Handlers = new()
         {
-            ProviderInit = { Handler = ProviderInit.Return(42) },
+            ProviderInit = { Handler = Mocks.ProviderInit(ReturnValue((nint)42)) },
         };
 
         var provider = Provider.Init("foo");
@@ -64,7 +82,7 @@ public class ProviderTests
     {
         Libstapsdt.Libstapsdt.Handlers = new()
         {
-            ProviderInit = { Handler = ProviderInit.Return(42) },
+            ProviderInit = { Handler = Mocks.ProviderInit(ReturnValue((nint)42)) },
         };
 
         var provider = Provider.Init("foo");
@@ -76,7 +94,7 @@ public class ProviderTests
     {
         Libstapsdt.Libstapsdt.Handlers = new()
         {
-            ProviderInit = { Handler = ProviderInit.Return(42) },
+            ProviderInit = { Handler = Mocks.ProviderInit(ReturnValue((nint)42)) },
             ProviderDestroy = { Handler = ProviderDestroy.Expect(new(42)).Return(default) },
         };
 
@@ -89,7 +107,7 @@ public class ProviderTests
         LibstapsdtHandlers handlers;
         Libstapsdt.Libstapsdt.Handlers = handlers = new()
         {
-            ProviderInit = { Handler = ProviderInit.Return(42) },
+            ProviderInit = { Handler = Mocks.ProviderInit(ReturnValue((nint)42)) },
             ProviderDestroy = { Handler = ProviderDestroy.Expect(new(42)).Return(default) },
         };
 
@@ -105,7 +123,7 @@ public class ProviderTests
     {
         Libstapsdt.Libstapsdt.Handlers = new()
         {
-            ProviderInit = { Handler = ProviderInit.Return(42) },
+            ProviderInit = { Handler = Mocks.ProviderInit(ReturnValue((nint)42)) },
             ProviderLoad = { Handler = ProviderLoad.Return(0) },
         };
 
@@ -120,7 +138,7 @@ public class ProviderTests
     {
         Libstapsdt.Libstapsdt.Handlers = new()
         {
-            ProviderInit = { Handler = ProviderInit.Return(42) },
+            ProviderInit = { Handler = Mocks.ProviderInit(ReturnValue((nint)42)) },
             ProviderLoad = { Handler = ProviderLoad.Return(0) },
             ProviderUnload = { Handler = ProviderUnload.Expect(new(42)).Return(0) },
         };
@@ -136,7 +154,7 @@ public class ProviderTests
     {
         Libstapsdt.Libstapsdt.Handlers = new()
         {
-            ProviderInit = { Handler = ProviderInit.Return(42) },
+            ProviderInit = { Handler = Mocks.ProviderInit(ReturnValue((nint)42)) },
             ProviderLoad = { Handler = ProviderLoad.Return(0) },
             ProviderUnload = { Handler = ProviderUnload.Expect(new(42)).Return(0) },
         };
@@ -153,13 +171,16 @@ public class ProviderTests
     [Fact]
     public void AddProbe_Returns_Initialized_Probe()
     {
+        var providerAddProbeArgs = Ref.Create(new ProviderAddProbeArgs(new(), "bar", []));
+
         Libstapsdt.Libstapsdt.Handlers = new()
         {
-            ProviderInit = { Handler = ProviderInit.Return(42) },
-            ProviderAddProbe = { Handler = ProviderAddProbe.Expect(new(42, "bar", [])).Return(4242) },
+            ProviderInit = { Handler = Mocks.ProviderInit(ReturnValue((nint)42)) },
+            ProviderAddProbe = { Handler = ProviderAddProbe.ExpectRef(providerAddProbeArgs).Return(4242) },
         };
 
         var provider = Provider.Init("foo");
+        providerAddProbeArgs.Value = providerAddProbeArgs.Value with { Provider = provider };
         var probe = provider.AddProbe("bar");
 
         Assert.Equal("bar", probe.Name);
@@ -169,13 +190,16 @@ public class ProviderTests
     [Fact]
     public void AddProbe_With_1_Arg_Returns_Initialized_Probe()
     {
+        var providerAddProbeArgs = Ref.Create(new ProviderAddProbeArgs(new(), "bar", [Libstapsdt.ArgType.Int32]));
+
         Libstapsdt.Libstapsdt.Handlers = new()
         {
-            ProviderInit = { Handler = ProviderInit.Return(42) },
-            ProviderAddProbe = { Handler = ProviderAddProbe.Expect(new(42, "bar", [Libstapsdt.ArgType.Int32])).Return(4242) },
+            ProviderInit = { Handler = Mocks.ProviderInit(ReturnValue((nint)42)) },
+            ProviderAddProbe = { Handler = ProviderAddProbe.ExpectRef(providerAddProbeArgs).Return(4242) },
         };
 
         var provider = Provider.Init("foo");
+        providerAddProbeArgs.Value = providerAddProbeArgs.Value with { Provider = provider };
         var probe = provider.AddProbe<Int32Arg>("bar");
 
         Assert.Equal("bar", probe.Name);

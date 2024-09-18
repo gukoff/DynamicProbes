@@ -1,3 +1,4 @@
+using DynamicProbes;
 using UnitTests;
 
 #pragma warning disable IDE0130 // Namespace does not match folder structure (by-design)
@@ -28,17 +29,17 @@ sealed class HandlerCell<TArgs, TResult>
 
 sealed record ProviderInitArgs(string Name);
 sealed record ProviderDestroyArgs(nint Provider);
-sealed record ProviderLoadArgs(nint Provider);
+sealed record ProviderLoadArgs(Provider Provider);
 sealed record ProviderUnloadArgs(nint Provider);
 sealed record ProbeIsEnabledArgs(nint Probe);
-sealed record ProviderAddProbeArgs(nint Provider, string Name, EquatableArray<Enum<ArgType>> Args);
+sealed record ProviderAddProbeArgs(Provider Provider, string Name, EquatableArray<Enum<ArgType>> Args);
 sealed record ProbeFireArgs(nint Probe, EquatableArray<long> Args);
 
 sealed class LibstapsdtHandlers
 {
     public static LibstapsdtHandlers Default { get; } = new();
 
-    public HandlerCell<ProviderInitArgs, nint> ProviderInit { get; init; } = new(nameof(ProviderInit));
+    public HandlerCell<ProviderInitArgs, Provider> ProviderInit { get; init; } = new(nameof(ProviderInit));
     public HandlerCell<ProviderDestroyArgs, Unit> ProviderDestroy { get; init; } = new(nameof(ProviderDestroy));
 
     public HandlerCell<ProviderLoadArgs, int> ProviderLoad { get; init; } = new(nameof(ProviderLoad));
@@ -51,7 +52,7 @@ sealed class LibstapsdtHandlers
 
 static class DefaultLibstapsdtHandlers
 {
-    public static readonly INeverHandler<ProviderInitArgs, nint> ProviderInit = Handler.Never<ProviderInitArgs, nint>(nameof(ProviderInit));
+    public static readonly INeverHandler<ProviderInitArgs, Provider> ProviderInit = Handler.Never<ProviderInitArgs, Provider>(nameof(ProviderInit));
 
     public static readonly INeverHandler<ProviderDestroyArgs, Unit> ProviderDestroy = Handler.Never<ProviderDestroyArgs, Unit>(nameof(ProviderDestroy));
 
@@ -74,27 +75,28 @@ static class Libstapsdt
         set => handlers = value;
     }
 
-    public static nint ProviderInit(string name) => Handlers.ProviderInit.Invoke(new(name));
+    public static Provider ProviderInit(string name) => Handlers.ProviderInit.Invoke(new(name));
     public static void ProviderDestroy(nint provider) => Handlers.ProviderDestroy.Invoke(new(provider));
 
     public static int ProviderUnload(nint provider) => Handlers.ProviderUnload.Invoke(new(provider));
-    public static int ProviderLoad(nint provider) => Handlers.ProviderLoad.Invoke(new(provider));
+    public static int ProviderUnload(Provider provider) => Handlers.ProviderUnload.Invoke(new(provider.DangerousGetHandle()));
+    public static int ProviderLoad(Provider provider) => Handlers.ProviderLoad.Invoke(new(provider));
 
     public static bool ProbeIsEnabled(nint probe) => Handlers.ProbeIsEnabled.Invoke(new(probe));
 
-    public static nint ProviderAddProbe(nint provider, string name) =>
+    public static nint ProviderAddProbe(Provider provider, string name) =>
         Handlers.ProviderAddProbe.Invoke(new(provider, name, []));
-    public static nint ProviderAddProbe(nint provider, string name, ArgType arg1) =>
+    public static nint ProviderAddProbe(Provider provider, string name, ArgType arg1) =>
         Handlers.ProviderAddProbe.Invoke(new(provider, name, [arg1]));
-    public static nint ProviderAddProbe(nint provider, string name, ArgType arg1, ArgType arg2) =>
+    public static nint ProviderAddProbe(Provider provider, string name, ArgType arg1, ArgType arg2) =>
         Handlers.ProviderAddProbe.Invoke(new(provider, name, [arg1, arg2]));
-    public static nint ProviderAddProbe(nint provider, string name, ArgType arg1, ArgType arg2, ArgType arg3) =>
+    public static nint ProviderAddProbe(Provider provider, string name, ArgType arg1, ArgType arg2, ArgType arg3) =>
         Handlers.ProviderAddProbe.Invoke(new(provider, name, [arg1, arg2, arg3]));
-    public static nint ProviderAddProbe(nint provider, string name, ArgType arg1, ArgType arg2, ArgType arg3, ArgType arg4) =>
+    public static nint ProviderAddProbe(Provider provider, string name, ArgType arg1, ArgType arg2, ArgType arg3, ArgType arg4) =>
         Handlers.ProviderAddProbe.Invoke(new(provider, name, [arg1, arg2, arg3, arg4]));
-    public static nint ProviderAddProbe(nint provider, string name, ArgType arg1, ArgType arg2, ArgType arg3, ArgType arg4, ArgType arg5) =>
+    public static nint ProviderAddProbe(Provider provider, string name, ArgType arg1, ArgType arg2, ArgType arg3, ArgType arg4, ArgType arg5) =>
         Handlers.ProviderAddProbe.Invoke(new(provider, name, [arg1, arg2, arg3, arg4, arg5]));
-    public static nint ProviderAddProbe(nint provider, string name, ArgType arg1, ArgType arg2, ArgType arg3, ArgType arg4, ArgType arg5, ArgType arg6) =>
+    public static nint ProviderAddProbe(Provider provider, string name, ArgType arg1, ArgType arg2, ArgType arg3, ArgType arg4, ArgType arg5, ArgType arg6) =>
         Handlers.ProviderAddProbe.Invoke(new(provider, name, [arg1, arg2, arg3, arg4, arg5, arg6]));
 
 

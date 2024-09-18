@@ -21,6 +21,7 @@ DynamicProbes.Int8Arg.Int8Arg(sbyte Value) -> void
 DynamicProbes.Int8Arg.Value.get -> sbyte
 DynamicProbes.Int8Arg.Value.init -> void
 DynamicProbes.Provider
+DynamicProbes.Provider.Provider() -> void
 DynamicProbes.Provider.AddProbe(string! name) -> DynamicProbes.Probe
 DynamicProbes.Provider.AddProbe<T1, T2, T3, T4, T5, T6>(string! name) -> DynamicProbes.Probe<T1, T2, T3, T4, T5, T6>
 DynamicProbes.Provider.AddProbe<T1, T2, T3, T4, T5>(string! name) -> DynamicProbes.Probe<T1, T2, T3, T4, T5>
@@ -53,6 +54,7 @@ override DynamicProbes.Int32Arg.ToString() -> string!
 override DynamicProbes.Int64Arg.ToString() -> string!
 override DynamicProbes.Int8Arg.ToString() -> string!
 override DynamicProbes.Provider.ToString() -> string!
+override DynamicProbes.Provider.IsInvalid.get -> bool
 DynamicProbes.Provider.Name.get -> string!
 DynamicProbes.Provider.Load() -> DynamicProbes.ILoadedProvider!
 override DynamicProbes.UInt16Arg.ToString() -> string!
@@ -68,7 +70,6 @@ static DynamicProbes.Int64Arg.implicit operator DynamicProbes.Int64Arg(long valu
 static DynamicProbes.Int8Arg.ArgType.get -> DynamicProbes.ArgType
 static DynamicProbes.Int8Arg.implicit operator DynamicProbes.Int8Arg(sbyte value) -> DynamicProbes.Int8Arg
 static DynamicProbes.Provider.Init(string! name) -> DynamicProbes.Provider!
-DynamicProbes.Provider.Dispose() -> void
 DynamicProbes.ILoadedProvider
 DynamicProbes.ILoadedProvider.Unload() -> DynamicProbes.Provider!
 DynamicProbes.ProviderException
