@@ -1,4 +1,6 @@
-namespace UnitTests;
+#pragma warning disable IDE0130 // Namespace does not match folder structure (simplicity)
+namespace UnitTests.Mocking.Methods;
+#pragma warning restore IDE0130 // Namespace does not match folder structure
 
 /// <summary>
 /// Represents the context of a <see cref="IHandler{TArgs,TResult}.Handle"/> call.
@@ -190,7 +192,7 @@ sealed class HandlerCell<TArgs, TResult>
     public HandlerCell(string name)
     {
         this.name = name;
-        Handler = UnitTests.Handler.Never<TArgs, TResult>(this.name);
+        Handler = UnitTests.Mocking.Methods.Handler.Never<TArgs, TResult>(this.name);
     }
 
     public int InvocationCount { get; private set; }

@@ -1,5 +1,6 @@
 using DynamicProbes;
 using Libstapsdt;
+using UnitTests.Mocking.Methods;
 using static Libstapsdt.DefaultLibstapsdtHandlers;
 
 namespace UnitTests;
