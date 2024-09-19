@@ -28,16 +28,15 @@ interface IPartialHandler<TArgs, TResult>
 }
 
 /// <summary>
-/// Represents a call handler that never returns when there is no
-/// implementation and therefore throws <see cref="NotImplementedException"/>.
+/// Represents a call handler that never returns when there is no implementation and therefore
+/// throws <see cref="NotImplementedException"/>.
 /// </summary>
 interface INeverHandler<TArgs, TResult> :
     IHandler<TArgs, TResult>,
     IPartialHandler<TArgs, TResult>;
 
 /// <summary>
-/// Represents a call handler that captures the arguments and results into
-/// the call context.
+/// Represents a call handler that captures the arguments and results into the call context.
 /// </summary>
 interface ICapturingHandler<TArgs, TResult> : IHandler<TArgs, TResult>;
 
@@ -104,8 +103,7 @@ static class Handler
     }
 
     /// <summary>
-    /// Creates a handler that asserts whether call arguments are equal to the
-    /// expected value.
+    /// Creates a handler that asserts whether call arguments are equal to the expected value.
     /// </summary>
     public static IPartialHandler<TArgs, TResult>
         Expect<TArgs, TResult>(this IPartialHandler<TArgs, TResult> handler, TArgs expected)
@@ -113,8 +111,7 @@ static class Handler
         handler.Do(args => Assert.Equal(expected, args));
 
     /// <summary>
-    /// Creates a handler that asserts whether call arguments are equal to the
-    /// expected value.
+    /// Creates a handler that asserts whether call arguments are equal to the expected value.
     /// </summary>
     public static IPartialHandler<TArgs, TResult>
         ExpectRef<TArgs, TResult>(this IPartialHandler<TArgs, TResult> handler, Ref<TArgs> expected)
@@ -122,8 +119,7 @@ static class Handler
         handler.Do(args => Assert.Equal(expected.Value, args));
 
     /// <summary>
-    /// Creates a handler that asserts whether call arguments meet a specific
-    /// condition.
+    /// Creates a handler that asserts whether call arguments meet a specific condition.
     /// </summary>
     public static IPartialHandler<TArgs, TResult>
         AssertTrue<TArgs, TResult>(this IPartialHandler<TArgs, TResult> handler,
@@ -149,9 +145,9 @@ static class Handler
     }
 
     /// <summary>
-    /// Creates a handler that iterates through a sequence of implementations.
-    /// If the handler is invoked when the entire sequence is exhausted, it
-    /// throws <see cref="InvalidOperationException"/>.
+    /// Creates a handler that iterates through a sequence of implementations. If the handler is
+    /// invoked when the entire sequence is exhausted, it throws <see
+    /// cref="InvalidOperationException"/>.
     /// </summary>
     public static IHandler<TArgs, TResult>
         Sequence<TArgs, TResult>(this INeverHandler<TArgs, TResult> never,
