@@ -189,3 +189,28 @@ static class Handler
         });
     }
 }
+
+/// <summary>
+/// Connects a handler to a context with invocation infrastructure.
+/// </summary>
+sealed class HandlerCell<TArgs, TResult>
+{
+    readonly string name;
+
+    public HandlerCell(string name)
+    {
+        this.name = name;
+        Handler = UnitTests.Handler.Never<TArgs, TResult>(this.name);
+    }
+
+    public int InvocationCount { get; private set; }
+
+    public CallContext<TArgs, TResult> CallContext { get; } = new();
+    public IHandler<TArgs, TResult> Handler { get; set; }
+
+    public TResult Invoke(TArgs args)
+    {
+        InvocationCount++;
+        return Handler.Handle(CallContext, args);
+    }
+}
