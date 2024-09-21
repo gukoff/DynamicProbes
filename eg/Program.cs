@@ -14,7 +14,7 @@ try
 
     //Libstapsdt.Libstapsdt.ProviderUseMemfd(ref provider, MemFDOption_t.MemfdEnabled);
 
-    var probe = provider.AddProbe<Int64Arg, IntPtrAsUInt64Arg>(probeName);
+    var probe = provider.AddProbe<Int64Arg, IntPtrArg>(probeName);
     _ = provider.Load();
 
     Console.WriteLine("Ready! Trace me with:");

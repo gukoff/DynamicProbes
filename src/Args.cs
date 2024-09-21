@@ -118,9 +118,9 @@ public readonly record struct Int64Arg(long Value) : IArgType, IFireArgLong
 /// <summary>
 /// <see langword="nint"/> as an argument of type <see cref="ArgType.UInt64"/>.
 /// </summary>
-public readonly record struct IntPtrAsUInt64Arg(nint Value) : IArgType, IFireArgLong
+public readonly record struct IntPtrArg(nint Value) : IArgType, IFireArgLong
 {
     public static ArgType ArgType => ArgType.UInt64;
-    public static implicit operator IntPtrAsUInt64Arg(nint value) => new(value);
+    public static implicit operator IntPtrArg(nint value) => new(value);
     long IFireArgLong.UncheckedValue => Value;
 }

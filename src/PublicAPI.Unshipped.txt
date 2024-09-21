@@ -20,11 +20,11 @@ DynamicProbes.Int8Arg.Int8Arg() -> void
 DynamicProbes.Int8Arg.Int8Arg(sbyte Value) -> void
 DynamicProbes.Int8Arg.Value.get -> sbyte
 DynamicProbes.Int8Arg.Value.init -> void
-DynamicProbes.IntPtrAsUInt64Arg
-DynamicProbes.IntPtrAsUInt64Arg.IntPtrAsUInt64Arg() -> void
-DynamicProbes.IntPtrAsUInt64Arg.IntPtrAsUInt64Arg(nint Value) -> void
-DynamicProbes.IntPtrAsUInt64Arg.Value.get -> nint
-DynamicProbes.IntPtrAsUInt64Arg.Value.init -> void
+DynamicProbes.IntPtrArg
+DynamicProbes.IntPtrArg.IntPtrArg() -> void
+DynamicProbes.IntPtrArg.IntPtrArg(nint Value) -> void
+DynamicProbes.IntPtrArg.Value.get -> nint
+DynamicProbes.IntPtrArg.Value.init -> void
 DynamicProbes.Provider
 DynamicProbes.Provider.Provider() -> void
 DynamicProbes.Provider.AddProbe(string! name) -> DynamicProbes.Probe
@@ -74,8 +74,8 @@ static DynamicProbes.Int64Arg.ArgType.get -> DynamicProbes.ArgType
 static DynamicProbes.Int64Arg.implicit operator DynamicProbes.Int64Arg(long value) -> DynamicProbes.Int64Arg
 static DynamicProbes.Int8Arg.ArgType.get -> DynamicProbes.ArgType
 static DynamicProbes.Int8Arg.implicit operator DynamicProbes.Int8Arg(sbyte value) -> DynamicProbes.Int8Arg
-static DynamicProbes.IntPtrAsUInt64Arg.ArgType.get -> DynamicProbes.ArgType
-static DynamicProbes.IntPtrAsUInt64Arg.implicit operator DynamicProbes.IntPtrAsUInt64Arg(nint value) -> DynamicProbes.IntPtrAsUInt64Arg
+static DynamicProbes.IntPtrArg.ArgType.get -> DynamicProbes.ArgType
+static DynamicProbes.IntPtrArg.implicit operator DynamicProbes.IntPtrArg(nint value) -> DynamicProbes.IntPtrArg
 static DynamicProbes.Provider.Init(string! name) -> DynamicProbes.Provider!
 DynamicProbes.ILoadedProvider
 DynamicProbes.ILoadedProvider.Unload() -> DynamicProbes.Provider!
