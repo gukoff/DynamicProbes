@@ -41,13 +41,3 @@ catch (DllNotFoundException)
 {
     Console.WriteLine("ERROR: libstapsdt is not found. Please install it: https://github.com/linux-usdt/libstapsdt?tab=readme-ov-file#install");
 }
-
-/// <summary>
-/// <see langword="nint"/> as an argument of type <see cref="ArgType_t.UInt64"/>.
-/// </summary>
-readonly record struct IntPtrAsUInt64Arg(nint Value) : IArgType, IFireArgLong
-{
-    public static ArgType ArgType => ArgType.UInt64;
-    public static implicit operator IntPtrAsUInt64Arg(nint value) => new(value);
-    long IFireArgLong.UncheckedValue => Value;
-}
