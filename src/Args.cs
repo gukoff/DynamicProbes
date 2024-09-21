@@ -124,3 +124,14 @@ public readonly record struct IntPtrArg(nint Value) : IArgType, IFireArgLong
     public static implicit operator IntPtrArg(nint value) => new(value);
     long IFireArgLong.UncheckedValue => Value;
 }
+
+/// <summary>
+/// <see langword="bool"/> as an argument of type <see cref="ArgType.Int32"/>.
+/// </summary>
+public readonly record struct BoolArg(bool Value) : IArgType, IFireArgLong
+{
+    public static ArgType ArgType => ArgType.Int32;
+    public static implicit operator BoolArg(bool value) => new(value);
+    long IFireArgLong.UncheckedValue => Value ? 1 : 0;
+    public override string ToString() => Value.ToString();
+}
