@@ -1,6 +1,6 @@
 using DynamicProbes;
-using Libstapsdt;
 using UnitTests.Mocking.Methods;
+using static Libstapsdt.DefaultLibstapsdtHandlers;
 
 namespace UnitTests;
 
@@ -20,9 +20,9 @@ public sealed class ProbeTests : IDisposable
     {
         using var handlers = Libstapsdt.Libstapsdt.Handlers = new()
         {
-            ProviderInit = { Handler = DefaultLibstapsdtHandlers.ProviderInit.Return(this.provider) },
-            ProviderDestroy = { Handler = DefaultLibstapsdtHandlers.UnverifiedProviderDestroy },
-            ProviderAddProbe = { Handler = DefaultLibstapsdtHandlers.ProviderAddProbe.Return(4242) },
+            ProviderInit = { Handler = ProviderInit.Return(this.provider) },
+            ProviderDestroy = { Handler = UnverifiedProviderDestroy },
+            ProviderAddProbe = { Handler = ProviderAddProbe.Return(4242) },
         };
 
         var probe = Provider.Init("foo").AddProbe("bar");
@@ -35,12 +35,12 @@ public sealed class ProbeTests : IDisposable
     {
         using var handlers = Libstapsdt.Libstapsdt.Handlers = new()
         {
-            ProviderInit = { Handler = DefaultLibstapsdtHandlers.ProviderInit.Return(this.provider) },
-            ProviderDestroy = { Handler = DefaultLibstapsdtHandlers.UnverifiedProviderDestroy },
-            ProviderAddProbe = { Handler = DefaultLibstapsdtHandlers.ProviderAddProbe.Return(4242) },
-            ProviderLoad = { Handler = DefaultLibstapsdtHandlers.ProviderLoad.Return(0) },
-            ProviderUnload = { Handler = DefaultLibstapsdtHandlers.ProviderUnload.Return(0) },
-            ProbeFire = { Handler = DefaultLibstapsdtHandlers.ProbeFire.Expect(new(4242, [])).Return(default) },
+            ProviderInit = { Handler = ProviderInit.Return(this.provider) },
+            ProviderDestroy = { Handler = UnverifiedProviderDestroy },
+            ProviderAddProbe = { Handler = ProviderAddProbe.Return(4242) },
+            ProviderLoad = { Handler = ProviderLoad.Return(0) },
+            ProviderUnload = { Handler = ProviderUnload.Return(0) },
+            ProbeFire = { Handler = ProbeFire.Expect(new(4242, [])).Return(default) },
         };
 
         var provider = Provider.Init("foo");
@@ -55,12 +55,12 @@ public sealed class ProbeTests : IDisposable
     {
         using var handlers = Libstapsdt.Libstapsdt.Handlers = new()
         {
-            ProviderInit = { Handler = DefaultLibstapsdtHandlers.ProviderInit.Return(this.provider) },
-            ProviderDestroy = { Handler = DefaultLibstapsdtHandlers.UnverifiedProviderDestroy },
-            ProviderAddProbe = { Handler = DefaultLibstapsdtHandlers.ProviderAddProbe.Return(4242) },
-            ProviderLoad = { Handler = DefaultLibstapsdtHandlers.ProviderLoad.Return(0) },
-            ProviderUnload = { Handler = DefaultLibstapsdtHandlers.ProviderUnload.Return(0) },
-            ProbeFire = { Handler = DefaultLibstapsdtHandlers.ProbeFire.Expect(new(4242, [])).Return(default) },
+            ProviderInit = { Handler = ProviderInit.Return(this.provider) },
+            ProviderDestroy = { Handler = UnverifiedProviderDestroy },
+            ProviderAddProbe = { Handler = ProviderAddProbe.Return(4242) },
+            ProviderLoad = { Handler = ProviderLoad.Return(0) },
+            ProviderUnload = { Handler = ProviderUnload.Return(0) },
+            ProbeFire = { Handler = ProbeFire.Expect(new(4242, [])).Return(default) },
         };
 
         var provider = Provider.Init("foo");
