@@ -16,8 +16,6 @@ sealed record ProbeFireArgs(nint Probe, EquatableArray<long> Args);
 
 sealed class LibstapsdtHandlers
 {
-    public static LibstapsdtHandlers Default { get; } = new();
-
     public HandlerCell<ProviderInitArgs, Provider> ProviderInit { get; init; } = new(nameof(ProviderInit));
     public HandlerCell<ProviderDestroyArgs, Unit> ProviderDestroy { get; init; } = new(nameof(ProviderDestroy));
 
@@ -50,7 +48,7 @@ static class Libstapsdt
 
     public static LibstapsdtHandlers Handlers
     {
-        get => handlers ??= LibstapsdtHandlers.Default;
+        get => handlers ??= new();
         set => handlers = value;
     }
 
