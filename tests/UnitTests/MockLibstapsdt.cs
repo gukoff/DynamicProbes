@@ -14,10 +14,25 @@ sealed record ProbeIsEnabledArgs(nint Probe);
 sealed record ProviderAddProbeArgs(Provider Provider, string Name, EquatableArray<Enum<ArgType>> Args);
 sealed record ProbeFireArgs(nint Probe, EquatableArray<long> Args);
 
-sealed class LibstapsdtHandlers
+sealed class LibstapsdtHandlers : IDisposable
 {
+    readonly List<Provider> initializedProviders = [];
+
+    public LibstapsdtHandlers() =>
+        ProviderInit.Invoked += (_, args) => this.initializedProviders.Add(args.Result);
+
+    public void Dispose()
+    {
+        foreach (var provider in this.initializedProviders)
+            provider.Dispose();
+
+        this.initializedProviders.Clear();
+    }
+
     public HandlerCell<ProviderInitArgs, Provider> ProviderInit { get; init; } = new(nameof(ProviderInit));
-    public HandlerCell<ProviderDestroyArgs, Unit> ProviderDestroy { get; init; } = new(nameof(ProviderDestroy));
+
+    public HandlerCell<ProviderDestroyArgs, Unit> ProviderDestroy { get; init; } =
+        new(nameof(ProviderDestroy));
 
     public HandlerCell<ProviderLoadArgs, int> ProviderLoad { get; init; } = new(nameof(ProviderLoad));
     public HandlerCell<ProviderUnloadArgs, int> ProviderUnload { get; init; } = new(nameof(ProviderUnload));
@@ -39,6 +54,9 @@ static class DefaultLibstapsdtHandlers
     public static readonly INeverHandler<ProbeIsEnabledArgs, bool> ProbeIsEnabled = Handler.Never<ProbeIsEnabledArgs, bool>(nameof(ProbeIsEnabled));
     public static readonly INeverHandler<ProviderAddProbeArgs, nint> ProviderAddProbe = Handler.Never<ProviderAddProbeArgs, nint>(nameof(ProviderAddProbe));
     public static readonly INeverHandler<ProbeFireArgs, Unit> ProbeFire = Handler.Never<ProbeFireArgs, Unit>(nameof(ProbeFire));
+
+    public static readonly IHandler<ProviderDestroyArgs, Unit> UnverifiedProviderDestroy = ProviderDestroy.Return(default);
+    public static readonly IHandler<ProviderUnloadArgs, int> UnverifiedProviderUnload = ProviderUnload.Return(0);
 }
 
 static class Libstapsdt

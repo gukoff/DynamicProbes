@@ -196,9 +196,13 @@ sealed class HandlerCell<TArgs, TResult>
     public CallContext<TArgs, TResult> CallContext { get; } = new();
     public IHandler<TArgs, TResult> Handler { get; set; }
 
+    public event EventHandler<(TArgs Args, TResult Result)>? Invoked;
+
     public TResult Invoke(TArgs args)
     {
         InvocationCount++;
-        return Handler.Handle(CallContext, args);
+        var result = Handler.Handle(CallContext, args);
+        Invoked?.Invoke(this, (args, result));
+        return result;
     }
 }

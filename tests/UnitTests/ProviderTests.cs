@@ -12,27 +12,40 @@ readonly record struct ReturnValue<T>(T Value)
     public static implicit operator T(ReturnValue<T> value) => value.Value;
 }
 
-#pragma warning disable CA2000 // Dispose objects before losing scope (unmocked)
-
-public class ProviderTests
+public sealed class ProviderTests : IDisposable
 {
     static ReturnValue<T> ReturnValue<T>(T value) => new(value);
 
     static class Mocks
     {
         public static IHandler<ProviderInitArgs, Provider> ProviderInit(ReturnValue<nint> ptr) =>
-            DefaultLibstapsdtHandlers.ProviderInit.Return(Provider.Fake(ptr));
+            DefaultLibstapsdtHandlers.ProviderInit
+#pragma warning disable CA2000 // Dispose objects before losing scope
+                                     .Return(Provider.Fake(ptr));
+#pragma warning restore CA2000 // Dispose objects before losing scope
 
         public static IHandler<ProviderInitArgs, Provider> ProviderInit(string name, ReturnValue<nint> ptr) =>
-            DefaultLibstapsdtHandlers.ProviderInit.Expect(new(name)).Return(Provider.Fake(ptr));
+            DefaultLibstapsdtHandlers.ProviderInit
+                                     .Expect(new(name))
+#pragma warning disable CA2000 // Dispose objects before losing scope
+                                     .Return(Provider.Fake(ptr));
+#pragma warning restore CA2000 // Dispose objects before losing scope
+    }
+
+    readonly Provider nullProvider = new();
+
+    public void Dispose()
+    {
+        this.nullProvider.Dispose();
     }
 
     [Fact]
     public void Init_Succeeds_When_ProviderInit_Indicates_Success()
     {
-        Libstapsdt.Libstapsdt.Handlers = new()
+        using var handlers = Libstapsdt.Libstapsdt.Handlers = new()
         {
             ProviderInit = { Handler = Mocks.ProviderInit("foo", ReturnValue((nint)42)) },
+            ProviderDestroy = { Handler = UnverifiedProviderDestroy },
         };
 
         var provider = Provider.Init("foo");
@@ -43,7 +56,7 @@ public class ProviderTests
     [Fact]
     public void Init_Throws_When_ProviderInit_Fails()
     {
-        Libstapsdt.Libstapsdt.Handlers = new()
+        using var handlers = Libstapsdt.Libstapsdt.Handlers = new()
         {
             ProviderInit = { Handler = Mocks.ProviderInit("foo", ReturnValue((nint)0)) },
         };
@@ -57,21 +70,24 @@ public class ProviderTests
     [Fact]
     public void Init_Returns_Unloaded_Provider()
     {
-        Libstapsdt.Libstapsdt.Handlers = new()
+        using var handlers = Libstapsdt.Libstapsdt.Handlers = new()
         {
             ProviderInit = { Handler = Mocks.ProviderInit(ReturnValue((nint)42)) },
+            ProviderDestroy = { Handler = UnverifiedProviderDestroy },
         };
 
         var provider = Provider.Init("foo");
+
         Assert.False(provider.IsLoaded);
     }
 
     [Fact]
     public void Init_Returns_Provider_With_Initialized_Name()
     {
-        Libstapsdt.Libstapsdt.Handlers = new()
+        using var handlers = Libstapsdt.Libstapsdt.Handlers = new()
         {
             ProviderInit = { Handler = Mocks.ProviderInit(ReturnValue((nint)42)) },
+            ProviderDestroy = { Handler = UnverifiedProviderDestroy },
         };
 
         var provider = Provider.Init("foo");
@@ -81,9 +97,10 @@ public class ProviderTests
     [Fact]
     public void ToString_Returns_Name()
     {
-        Libstapsdt.Libstapsdt.Handlers = new()
+        using var handlers = Libstapsdt.Libstapsdt.Handlers = new()
         {
             ProviderInit = { Handler = Mocks.ProviderInit(ReturnValue((nint)42)) },
+            ProviderDestroy = { Handler = UnverifiedProviderDestroy },
         };
 
         var provider = Provider.Init("foo");
@@ -93,7 +110,7 @@ public class ProviderTests
     [Fact]
     public void Dispose_Destroys()
     {
-        Libstapsdt.Libstapsdt.Handlers = new()
+        using var handlers = Libstapsdt.Libstapsdt.Handlers = new()
         {
             ProviderInit = { Handler = Mocks.ProviderInit(ReturnValue((nint)42)) },
             ProviderDestroy = { Handler = ProviderDestroy.Expect(new(42)).Return(default) },
@@ -122,10 +139,12 @@ public class ProviderTests
     [Fact]
     public void Load_Loads_Provider()
     {
-        Libstapsdt.Libstapsdt.Handlers = new()
+        using var handlers = Libstapsdt.Libstapsdt.Handlers = new()
         {
             ProviderInit = { Handler = Mocks.ProviderInit(ReturnValue((nint)42)) },
+            ProviderDestroy = { Handler = UnverifiedProviderDestroy },
             ProviderLoad = { Handler = ProviderLoad.Return(0) },
+            ProviderUnload = { Handler = ProviderUnload.Return(0) },
         };
 
         var provider = Provider.Init("foo");
@@ -137,9 +156,10 @@ public class ProviderTests
     [Fact]
     public void Unload_Unloads_Provider()
     {
-        Libstapsdt.Libstapsdt.Handlers = new()
+        using var handlers = Libstapsdt.Libstapsdt.Handlers = new()
         {
             ProviderInit = { Handler = Mocks.ProviderInit(ReturnValue((nint)42)) },
+            ProviderDestroy = { Handler = UnverifiedProviderDestroy },
             ProviderLoad = { Handler = ProviderLoad.Return(0) },
             ProviderUnload = { Handler = ProviderUnload.Expect(new(42)).Return(0) },
         };
@@ -153,9 +173,10 @@ public class ProviderTests
     [Fact]
     public void Unload_Fails_When_Unloaded()
     {
-        Libstapsdt.Libstapsdt.Handlers = new()
+        using var handlers = Libstapsdt.Libstapsdt.Handlers = new()
         {
             ProviderInit = { Handler = Mocks.ProviderInit(ReturnValue((nint)42)) },
+            ProviderDestroy = { Handler = UnverifiedProviderDestroy },
             ProviderLoad = { Handler = ProviderLoad.Return(0) },
             ProviderUnload = { Handler = ProviderUnload.Expect(new(42)).Return(0) },
         };
@@ -172,11 +193,12 @@ public class ProviderTests
     [Fact]
     public void AddProbe_Returns_Initialized_Probe()
     {
-        var providerAddProbeArgs = Ref.Create(new ProviderAddProbeArgs(new(), "bar", []));
+        var providerAddProbeArgs = Ref.Create(new ProviderAddProbeArgs(this.nullProvider, "bar", []));
 
-        Libstapsdt.Libstapsdt.Handlers = new()
+        using var handlers = Libstapsdt.Libstapsdt.Handlers = new()
         {
             ProviderInit = { Handler = Mocks.ProviderInit(ReturnValue((nint)42)) },
+            ProviderDestroy = { Handler = UnverifiedProviderDestroy },
             ProviderAddProbe = { Handler = ProviderAddProbe.ExpectRef(providerAddProbeArgs).Return(4242) },
         };
 
@@ -191,11 +213,12 @@ public class ProviderTests
     [Fact]
     public void AddProbe_With_1_Arg_Returns_Initialized_Probe()
     {
-        var providerAddProbeArgs = Ref.Create(new ProviderAddProbeArgs(new(), "bar", [Libstapsdt.ArgType.Int32]));
+        var providerAddProbeArgs = Ref.Create(new ProviderAddProbeArgs(this.nullProvider, "bar", [Libstapsdt.ArgType.Int32]));
 
-        Libstapsdt.Libstapsdt.Handlers = new()
+        using var handlers = Libstapsdt.Libstapsdt.Handlers = new()
         {
             ProviderInit = { Handler = Mocks.ProviderInit(ReturnValue((nint)42)) },
+            ProviderDestroy = { Handler = UnverifiedProviderDestroy },
             ProviderAddProbe = { Handler = ProviderAddProbe.ExpectRef(providerAddProbeArgs).Return(4242) },
         };
 
