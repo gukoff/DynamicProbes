@@ -41,7 +41,7 @@ jobs:
           dotnet-version: '8.0.401'
 
       - name: Run benchmark
-        run: cd benchmark && dotnet run --exporters json --filter '*' -c Release
+        run: dotnet run --project benchmark -c Release
 
       - uses: actions/upload-artifact@v4
         with:
