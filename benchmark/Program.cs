@@ -17,12 +17,6 @@ public class UnobservedProbeFireBenchmarks
     nint probe4;
     nint probe5;
     nint probe6;
-    readonly long arg1 = 1234567890123456789;
-    readonly long arg2 = 2234567890123456789;
-    readonly long arg3 = 3234567890123456789;
-    readonly long arg4 = 4234567890123456789;
-    readonly long arg5 = 5234567890123456789;
-    readonly long arg6 = 6234567890123456789;
 
     [GlobalSetup]
     public void GlobalSetup()
@@ -44,23 +38,31 @@ public class UnobservedProbeFireBenchmarks
         Libstapsdt.ProviderDestroy(this.provider);
     }
 
-    [Benchmark]
-    public void ArgCount1() => Libstapsdt.ProbeFire(this.probe1, this.arg1);
+    const long Arg1 = 1234567890123456789;
+    const long Arg2 = 2234567890123456789;
+    const long Arg3 = 3234567890123456789;
+    const long Arg4 = 4234567890123456789;
+    const long Arg5 = 5234567890123456789;
+    const long Arg6 = 6234567890123456789;
+
 
     [Benchmark]
-    public void ArgCount2() => Libstapsdt.ProbeFire(this.probe2, this.arg1, this.arg2);
+    public void ArgCount1() => Libstapsdt.ProbeFire(this.probe1, Arg1);
 
     [Benchmark]
-    public void ArgCount3() => Libstapsdt.ProbeFire(this.probe3, this.arg1, this.arg2, this.arg3);
+    public void ArgCount2() => Libstapsdt.ProbeFire(this.probe2, Arg1, Arg2);
 
     [Benchmark]
-    public void ArgCount4() => Libstapsdt.ProbeFire(this.probe4, this.arg1, this.arg2, this.arg3, this.arg4);
+    public void ArgCount3() => Libstapsdt.ProbeFire(this.probe3, Arg1, Arg2, Arg3);
 
     [Benchmark]
-    public void ArgCount5() => Libstapsdt.ProbeFire(this.probe5, this.arg1, this.arg2, this.arg3, this.arg4, this.arg5);
+    public void ArgCount4() => Libstapsdt.ProbeFire(this.probe4, Arg1, Arg2, Arg3, Arg4);
 
     [Benchmark]
-    public void ArgCount6() => Libstapsdt.ProbeFire(this.probe6, this.arg1, this.arg2, this.arg3, this.arg4, this.arg5, this.arg6);
+    public void ArgCount5() => Libstapsdt.ProbeFire(this.probe5, Arg1, Arg2, Arg3, Arg4, Arg5);
+
+    [Benchmark]
+    public void ArgCount6() => Libstapsdt.ProbeFire(this.probe6, Arg1, Arg2, Arg3, Arg4, Arg5, Arg6);
 }
 
 public static class Program
