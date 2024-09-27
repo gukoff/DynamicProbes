@@ -8,7 +8,7 @@ namespace Benchmark;
 [JsonExporterAttribute.Full]
 [JsonExporterAttribute.FullCompressed]
 [SimpleJob(RuntimeMoniker.NativeAot80)]
-public class NotObservedProbeFireBenchmarks
+public class UnobservedProbeFireBenchmarks
 {
     nint provider;
     nint probe1;
@@ -67,6 +67,6 @@ public static class Program
 {
     public static void Main()
     {
-        _ = BenchmarkRunner.Run<NotObservedProbeFireBenchmarks>();
+        _ = BenchmarkRunner.Run<UnobservedProbeFireBenchmarks>();
     }
 }

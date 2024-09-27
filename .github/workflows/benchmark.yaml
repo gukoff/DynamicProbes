@@ -64,7 +64,7 @@ jobs:
         with:
           name: Benchmark (compared to main)  # bench data is cached inside `external-data-json-path` by this name
           tool: 'benchmarkdotnet'
-          output-file-path: benchmark/BenchmarkDotNet.Artifacts/results/Benchmark.NotObservedProbeFireBenchmarks-report-full-compressed.json
+          output-file-path: benchmark/BenchmarkDotNet.Artifacts/results/Benchmark.UnobservedProbeFireBenchmarks-report-full-compressed.json
           external-data-json-path: ./cache/benchmark-data.json
           github-token: ${{ secrets.GITHUB_TOKEN }}
           summary-always: true
