@@ -1,0 +1,21 @@
+name: Warm up the caches
+
+on:
+  schedule:
+    - cron: '0 0 * * */3'
+    # "GitHub will remove any cache entries that have not been accessed in over 7 days".
+    # This schedule will touch the cache 2 times a week at midnight.
+    #
+    # https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/caching-dependencies-to-speed-up-workflows#usage-limits-and-eviction-policy
+
+
+jobs:
+  benchmark:
+    name: Checkout the caches
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout last-benchmark
+        uses: actions/cache@v4
+        with:
+          path: ./cache
+          key: last-benchmark
