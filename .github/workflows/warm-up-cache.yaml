@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout last-benchmark
-        uses: actions/cache@v4
+        uses: actions/cache/restore@v4
         with:
           path: ./cache
           key: last-benchmark
