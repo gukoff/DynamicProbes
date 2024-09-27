@@ -1,0 +1,78 @@
+name: Benchmark
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  benchmark:
+    name: Run benchmark
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write  # in order to add a comment to PR
+    steps:
+      - name: Checkout libstapsdt repo
+        uses: actions/checkout@v4
+        with:
+          repository: linux-usdt/libstapsdt
+          ref: refs/heads/main
+          path: ext_libstapsdt
+
+      - name: Install libstapsdt
+        run: |
+          set -euxo pipefail
+          sudo apt install libelf-dev
+          cd ext_libstapsdt
+          make
+          sudo make install
+          sudo ldconfig
+        shell: bash
+
+      - name: Checkout DynamicProbes repo
+        uses: actions/checkout@v4
+
+      - name: Install dotnet
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.401'
+
+      - name: Run benchmark
+        run: dotnet run --project benchmark -c Release
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: results
+          path: BenchmarkDotNet.Artifacts/results/
+
+      # Download previous benchmark result from cache (if exists)
+      - name: Download previous benchmark data
+        uses: actions/cache@v4
+        with:
+          path: ./cache
+          key: last-benchmark
+
+      # This step does multiple things:
+      # - compares these benchmark results with the latest benchmark in the main branch;
+      # - prints the comparison to the CI run summary
+      # - posts the comparison as a PR comment, but updates the comment if it already exists.
+      - name: Publish benchmark result
+        uses: gukoff/github-action-benchmark@short-floats  # custom fork of the action that succinctly formats float values in the report
+        with:
+          name: Benchmark (compared to main)  # bench data is cached inside `external-data-json-path` by this name
+          tool: 'benchmarkdotnet'
+          output-file-path: BenchmarkDotNet.Artifacts/results/Benchmark.UnobservedProbeFireBenchmarks-report-full-compressed.json
+          external-data-json-path: ./cache/benchmark-data.json
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          summary-always: true
+          comment-always: true
+          # Caveat: https://github.com/benchmark-action/github-action-benchmark?tab=readme-ov-file#caveats
+          # When triggering on PRs, it's important to have this action "read-only"
+          save-data-file: ${{ github.event_name != 'pull_request' }}
+          alert-threshold: '200%'
+          comment-on-alert: true
+          fail-on-alert: true
+          alert-comment-cc-users: '@gukoff'
