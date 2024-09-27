@@ -58,7 +58,7 @@ jobs:
       # This step does multiple things:
       # - compares these benchmark results with the latest benchmark in the main branch;
       # - prints the comparison to the CI run summary
-      # - posts the comparison as a PR comment. If a comments already exists, updates it.
+      # - posts the comparison as a PR comment, but updates the comment if it already exists.
       - name: Publish benchmark result
         uses: gukoff/github-action-benchmark@short-floats  # custom fork of the action that succinctly formats float values in the report
         with:
