@@ -335,7 +335,7 @@ namespace LibstapsdtPinvokes
 {
     public static unsafe partial class Libstapsdt
     {
-        [global::System.Ruqntime.InteropServices.DllImportAttribute("libstapsdt.so.0", EntryPoint = "probeFire", ExactSpelling = true)]
+        [global::System.Runtime.InteropServices.DllImportAttribute("libstapsdt.so.0", EntryPoint = "probeFire", ExactSpelling = true)]
         public static extern partial void ProbeFire(nint probe, long arg1, long arg2, long arg3, long arg4, long arg5, long arg6);
     }
 }
