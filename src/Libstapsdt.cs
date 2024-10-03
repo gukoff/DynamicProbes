@@ -1,86 +1,96 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using DynamicProbes;
 using ProbePtr = nint;
-using SdtProviderPtr = nint;
 
 #pragma warning disable CA5392 // Use DefaultDllImportSearchPaths attribute for P/Invokes
                                // ...but it has no effect on non-Windows platforms or the Mono runtime.
 
-#pragma warning disable CA1401 // P/Invokes should not be visible
-                               // ...the point of this library is to make P/Invokes visible.
-
-namespace LibstapsdtPinvokes;
+namespace Libstapsdt;
 
 // Source: https://github.com/linux-usdt/libstapsdt/blob/0d53f987b0787362fd9c16a93cdad2c273d809fc/src/libstapsdt.h
 
-public static partial class Libstapsdt
+#if !NO_NATIVE_CODE
+
+static partial class Libstapsdt
 {
     const string LibstapsdtLibrary = "libstapsdt.so.0";
 
     // P/Invoke function declarations
     [LibraryImport(LibstapsdtLibrary, EntryPoint = "providerInit", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial SdtProviderPtr ProviderInit(string name);
+    public static partial Provider ProviderInit(string name);
 
     [LibraryImport(LibstapsdtLibrary, EntryPoint = "providerUseMemfd")]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int ProviderUseMemfd(SdtProviderPtr provider, MemfdOption option);
+    public static partial int ProviderUseMemfd(Provider provider, MemfdOption option);
 
     // Overloads for providerAddProbe for different argument counts
 
-    public static ProbePtr ProviderAddProbe(SdtProviderPtr provider, string name, ArgType arg1) =>
+    public static ProbePtr ProviderAddProbe(Provider provider, string name) =>
+        ProviderAddProbe(provider, name, 0);
+
+    public static ProbePtr ProviderAddProbe(Provider provider, string name, ArgType arg1) =>
         ProviderAddProbe(provider, name, 1, arg1);
 
-    public static ProbePtr ProviderAddProbe(SdtProviderPtr provider, string name, ArgType arg1, ArgType arg2) =>
+    public static ProbePtr ProviderAddProbe(Provider provider, string name, ArgType arg1, ArgType arg2) =>
         ProviderAddProbe(provider, name, 2, arg1, arg2);
 
-    public static ProbePtr ProviderAddProbe(SdtProviderPtr provider, string name, ArgType arg1, ArgType arg2, ArgType arg3) =>
+    public static ProbePtr ProviderAddProbe(Provider provider, string name, ArgType arg1, ArgType arg2, ArgType arg3) =>
         ProviderAddProbe(provider, name, 3, arg1, arg2, arg3);
 
-    public static ProbePtr ProviderAddProbe(SdtProviderPtr provider, string name, ArgType arg1, ArgType arg2, ArgType arg3, ArgType arg4) =>
+    public static ProbePtr ProviderAddProbe(Provider provider, string name, ArgType arg1, ArgType arg2, ArgType arg3, ArgType arg4) =>
         ProviderAddProbe(provider, name, 4, arg1, arg2, arg3, arg4);
 
-    public static ProbePtr ProviderAddProbe(SdtProviderPtr provider, string name, ArgType arg1, ArgType arg2, ArgType arg3, ArgType arg4, ArgType arg5) =>
+    public static ProbePtr ProviderAddProbe(Provider provider, string name, ArgType arg1, ArgType arg2, ArgType arg3, ArgType arg4, ArgType arg5) =>
         ProviderAddProbe(provider, name, 5, arg1, arg2, arg3, arg4, arg5);
 
-    public static ProbePtr ProviderAddProbe(SdtProviderPtr provider, string name, ArgType arg1, ArgType arg2, ArgType arg3, ArgType arg4, ArgType arg5, ArgType arg6) =>
+    public static ProbePtr ProviderAddProbe(Provider provider, string name, ArgType arg1, ArgType arg2, ArgType arg3, ArgType arg4, ArgType arg5, ArgType arg6) =>
         ProviderAddProbe(provider, name, 6, arg1, arg2, arg3, arg4, arg5, arg6);
 
     [LibraryImport(LibstapsdtLibrary, EntryPoint = "providerAddProbe", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    private static partial ProbePtr ProviderAddProbe(SdtProviderPtr provider, string name, int argCount, ArgType arg1);
+    private static partial ProbePtr ProviderAddProbe(Provider provider, string name, int argCount);
 
     [LibraryImport(LibstapsdtLibrary, EntryPoint = "providerAddProbe", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    private static partial ProbePtr ProviderAddProbe(SdtProviderPtr provider, string name, int argCount, ArgType arg1, ArgType arg2);
+    private static partial ProbePtr ProviderAddProbe(Provider provider, string name, int argCount, ArgType arg1);
 
     [LibraryImport(LibstapsdtLibrary, EntryPoint = "providerAddProbe", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    private static partial ProbePtr ProviderAddProbe(SdtProviderPtr provider, string name, int argCount, ArgType arg1, ArgType arg2, ArgType arg3);
+    private static partial ProbePtr ProviderAddProbe(Provider provider, string name, int argCount, ArgType arg1, ArgType arg2);
 
     [LibraryImport(LibstapsdtLibrary, EntryPoint = "providerAddProbe", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    private static partial ProbePtr ProviderAddProbe(SdtProviderPtr provider, string name, int argCount, ArgType arg1, ArgType arg2, ArgType arg3, ArgType arg4);
+    private static partial ProbePtr ProviderAddProbe(Provider provider, string name, int argCount, ArgType arg1, ArgType arg2, ArgType arg3);
 
     [LibraryImport(LibstapsdtLibrary, EntryPoint = "providerAddProbe", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    private static partial ProbePtr ProviderAddProbe(SdtProviderPtr provider, string name, int argCount, ArgType arg1, ArgType arg2, ArgType arg3, ArgType arg4, ArgType arg5);
+    private static partial ProbePtr ProviderAddProbe(Provider provider, string name, int argCount, ArgType arg1, ArgType arg2, ArgType arg3, ArgType arg4);
 
     [LibraryImport(LibstapsdtLibrary, EntryPoint = "providerAddProbe", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    private static partial ProbePtr ProviderAddProbe(SdtProviderPtr provider, string name, int argCount, ArgType arg1, ArgType arg2, ArgType arg3, ArgType arg4, ArgType arg5, ArgType arg6);
+    private static partial ProbePtr ProviderAddProbe(Provider provider, string name, int argCount, ArgType arg1, ArgType arg2, ArgType arg3, ArgType arg4, ArgType arg5);
+
+    [LibraryImport(LibstapsdtLibrary, EntryPoint = "providerAddProbe", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    private static partial ProbePtr ProviderAddProbe(Provider provider, string name, int argCount, ArgType arg1, ArgType arg2, ArgType arg3, ArgType arg4, ArgType arg5, ArgType arg6);
 
     [LibraryImport(LibstapsdtLibrary, EntryPoint = "providerLoad")]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int ProviderLoad(SdtProviderPtr provider);  // return -1 on error, 0 on success
+    public static partial int ProviderLoad(Provider provider);  // return -1 on error, 0 on success
 
     [LibraryImport(LibstapsdtLibrary, EntryPoint = "providerUnload")]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int ProviderUnload(SdtProviderPtr provider);  // return -1 on error, 0 on success
+    public static partial int ProviderUnload(nint provider);  // return -1 on error, 0 on success
+
+    [LibraryImport(LibstapsdtLibrary, EntryPoint = "providerUnload")]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int ProviderUnload(Provider provider);  // return -1 on error, 0 on success
 
     [LibraryImport(LibstapsdtLibrary, EntryPoint = "providerDestroy")]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void ProviderDestroy(SdtProviderPtr provider);
+    public static partial void ProviderDestroy(nint provider);
 
     // Overloads for probeFire for different argument counts
 
@@ -118,6 +128,8 @@ public static partial class Libstapsdt
     public static partial bool ProbeIsEnabled(ProbePtr probe);  // return 1 if true, 0 if false
 }
 
+#endif // !NO_NATIVE_CODE
+
 enum SdtError // SDTError_t
 {
     NoError                 = -1, // noError
@@ -128,9 +140,7 @@ enum SdtError // SDTError_t
     SharedLibraryCloseError = 4   // sharedLibraryCloseError
 }
 
-
-#pragma warning disable CA1720 // Identifiers should not contain type names
-public enum ArgType // ArgType_t
+enum ArgType // ArgType_t
 {
     NoArg = 0,  // noarg
     UInt8 = 1,  // uint8
@@ -143,9 +153,7 @@ public enum ArgType // ArgType_t
     Int64 = -8  // int64
 }
 
-#pragma warning restore CA1720 // Identifiers should not contain type names
-
-public enum MemfdOption // MemFDOption_t
+enum MemfdOption // MemFDOption_t
 {
     Disabled = 0, // memfd_disabled
     Enabled = 1   // memfd_enabled

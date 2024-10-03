@@ -3,24 +3,19 @@
 
 using System.Globalization;
 using System.Runtime.InteropServices;
-using LibstapsdtPinvokes;
+using DynamicProbes;
 
 try
 {
     var providerName = "myprovider";
     var probeName = "myprobe";
 
-    var provider = Libstapsdt.ProviderInit(providerName);
+    using var provider = Provider.Init(providerName);
 
-    _ = Libstapsdt.ProviderUseMemfd(provider, MemfdOption.Enabled);
+    // _ = Libstapsdt.ProviderUseMemfd(provider, MemfdOption.Enabled);
 
-    var probe = Libstapsdt.ProviderAddProbe(provider, probeName, ArgType.Int64, ArgType.UInt64);
-    if (probe == IntPtr.Zero)
-        throw new Exception("Could not initialize the probe");
-
-    var res = Libstapsdt.ProviderLoad(provider);
-    if (res != 0)
-        throw new Exception("Could not load provider");
+    var probe = provider.AddProbe<Int64Arg, IntPtrArg>(probeName);
+    _ = provider.Load();
 
     Console.WriteLine("Ready! Trace me with:");
     Console.WriteLine($$"""   sudo bpftrace -p {{Environment.ProcessId}} -e 'usdt:*:myprovider:myprobe { printf("Fired values: %ld %s\n", arg0, str(arg1)); }'""");
@@ -32,13 +27,13 @@ try
         var isoTimeStringPtr = Marshal.StringToCoTaskMemUTF8(isoTimeString);
         try
         {
-            Libstapsdt.ProbeFire(probe, val, isoTimeStringPtr);
+            probe.Active?.Fire(val, isoTimeStringPtr);
         }
         finally
         {
             Marshal.FreeCoTaskMem(isoTimeStringPtr);
         }
-        Console.WriteLine("Probe fired! Probe is currently {0}", Libstapsdt.ProbeIsEnabled(probe) ? "watched" : "not watched");
+        Console.WriteLine("Probe fired! Probe is currently {0}", probe.IsEnabled ? "watched" : "not watched");
         Thread.Sleep(500);
     }
 }

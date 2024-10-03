@@ -1,7 +1,7 @@
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Running;
-using LibstapsdtPinvokes;
+using DynamicProbes;
 
 namespace Benchmark;
 
@@ -10,32 +10,39 @@ namespace Benchmark;
 [SimpleJob(RuntimeMoniker.NativeAot80)]
 public class UnobservedProbeFireBenchmarks
 {
-    nint provider;
-    nint probe1;
-    nint probe2;
-    nint probe3;
-    nint probe4;
-    nint probe5;
-    nint probe6;
+    ILoadedProvider? provider;
+    Probe<Int64Arg> probe1;
+    Probe<Int64Arg, Int64Arg> probe2;
+    Probe<Int64Arg, Int64Arg, Int64Arg> probe3;
+    Probe<Int64Arg, Int64Arg, Int64Arg, Int64Arg> probe4;
+    Probe<Int64Arg, Int64Arg, Int64Arg, Int64Arg, Int64Arg> probe5;
+    Probe<Int64Arg, Int64Arg, Int64Arg, Int64Arg, Int64Arg, Int64Arg> probe6;
 
     [GlobalSetup]
     public void GlobalSetup()
     {
-        this.provider = Libstapsdt.ProviderInit("myprovider");
-        this.probe1 = Libstapsdt.ProviderAddProbe(this.provider, "myprobe1", ArgType.Int64);
-        this.probe2 = Libstapsdt.ProviderAddProbe(this.provider, "myprobe2", ArgType.Int64, ArgType.Int64);
-        this.probe3 = Libstapsdt.ProviderAddProbe(this.provider, "myprobe3", ArgType.Int64, ArgType.Int64, ArgType.Int64);
-        this.probe4 = Libstapsdt.ProviderAddProbe(this.provider, "myprobe4", ArgType.Int64, ArgType.Int64, ArgType.Int64, ArgType.Int64);
-        this.probe5 = Libstapsdt.ProviderAddProbe(this.provider, "myprobe5", ArgType.Int64, ArgType.Int64, ArgType.Int64, ArgType.Int64, ArgType.Int64);
-        this.probe6 = Libstapsdt.ProviderAddProbe(this.provider, "myprobe6", ArgType.Int64, ArgType.Int64, ArgType.Int64, ArgType.Int64, ArgType.Int64, ArgType.Int64);
-        _ = Libstapsdt.ProviderLoad(this.provider);
+        var provider = Provider.Init("myprovider");
+        try
+        {
+            this.probe1 = provider.AddProbe<Int64Arg>("myprobe1");
+            this.probe2 = provider.AddProbe<Int64Arg, Int64Arg>("myprobe2");
+            this.probe3 = provider.AddProbe<Int64Arg, Int64Arg, Int64Arg>("myprobe3");
+            this.probe4 = provider.AddProbe<Int64Arg, Int64Arg, Int64Arg, Int64Arg>("myprobe4");
+            this.probe5 = provider.AddProbe<Int64Arg, Int64Arg, Int64Arg, Int64Arg, Int64Arg>("myprobe5");
+            this.probe6 = provider.AddProbe<Int64Arg, Int64Arg, Int64Arg, Int64Arg, Int64Arg, Int64Arg>("myprobe6");
+            this.provider = provider.Load();
+        }
+        catch
+        {
+            provider.Dispose();
+            throw;
+        }
     }
 
     [GlobalCleanup]
     public void GlobalCleanup()
     {
-        _ = Libstapsdt.ProviderUnload(this.provider);
-        Libstapsdt.ProviderDestroy(this.provider);
+        this.provider?.Dispose();
     }
 
     const long Arg1 = 1234567890123456789;
@@ -47,22 +54,22 @@ public class UnobservedProbeFireBenchmarks
 
 
     [Benchmark]
-    public void ArgCount1() => Libstapsdt.ProbeFire(this.probe1, Arg1);
+    public void ArgCount1() => this.probe1.Fire(Arg1);
 
     [Benchmark]
-    public void ArgCount2() => Libstapsdt.ProbeFire(this.probe2, Arg1, Arg2);
+    public void ArgCount2() => this.probe2.Fire(Arg1, Arg2);
 
     [Benchmark]
-    public void ArgCount3() => Libstapsdt.ProbeFire(this.probe3, Arg1, Arg2, Arg3);
+    public void ArgCount3() => this.probe3.Fire(Arg1, Arg2, Arg3);
 
     [Benchmark]
-    public void ArgCount4() => Libstapsdt.ProbeFire(this.probe4, Arg1, Arg2, Arg3, Arg4);
+    public void ArgCount4() => this.probe4.Fire(Arg1, Arg2, Arg3, Arg4);
 
     [Benchmark]
-    public void ArgCount5() => Libstapsdt.ProbeFire(this.probe5, Arg1, Arg2, Arg3, Arg4, Arg5);
+    public void ArgCount5() => this.probe5.Fire(Arg1, Arg2, Arg3, Arg4, Arg5);
 
     [Benchmark]
-    public void ArgCount6() => Libstapsdt.ProbeFire(this.probe6, Arg1, Arg2, Arg3, Arg4, Arg5, Arg6);
+    public void ArgCount6() => this.probe6.Fire(Arg1, Arg2, Arg3, Arg4, Arg5, Arg6);
 }
 
 public static class Program

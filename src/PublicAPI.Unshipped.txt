@@ -1,0 +1,163 @@
+#nullable enable
+DynamicProbes.IArgType.ArgType.get -> DynamicProbes.ArgType
+DynamicProbes.BoolArg
+DynamicProbes.BoolArg.BoolArg() -> void
+DynamicProbes.BoolArg.BoolArg(bool Value) -> void
+DynamicProbes.BoolArg.Value.get -> bool
+DynamicProbes.BoolArg.Value.init -> void
+DynamicProbes.Int16Arg
+DynamicProbes.Int16Arg.Int16Arg() -> void
+DynamicProbes.Int16Arg.Int16Arg(short Value) -> void
+DynamicProbes.Int16Arg.Value.get -> short
+DynamicProbes.Int16Arg.Value.init -> void
+DynamicProbes.Int32Arg
+DynamicProbes.Int32Arg.Int32Arg() -> void
+DynamicProbes.Int32Arg.Int32Arg(int Value) -> void
+DynamicProbes.Int32Arg.Value.get -> int
+DynamicProbes.Int32Arg.Value.init -> void
+DynamicProbes.Int64Arg
+DynamicProbes.Int64Arg.Int64Arg() -> void
+DynamicProbes.Int64Arg.Int64Arg(long Value) -> void
+DynamicProbes.Int64Arg.Value.get -> long
+DynamicProbes.Int64Arg.Value.init -> void
+DynamicProbes.Int8Arg
+DynamicProbes.Int8Arg.Int8Arg() -> void
+DynamicProbes.Int8Arg.Int8Arg(sbyte Value) -> void
+DynamicProbes.Int8Arg.Value.get -> sbyte
+DynamicProbes.Int8Arg.Value.init -> void
+DynamicProbes.IntPtrArg
+DynamicProbes.IntPtrArg.IntPtrArg() -> void
+DynamicProbes.IntPtrArg.IntPtrArg(nint Value) -> void
+DynamicProbes.IntPtrArg.Value.get -> nint
+DynamicProbes.IntPtrArg.Value.init -> void
+DynamicProbes.Provider
+DynamicProbes.Provider.Provider() -> void
+DynamicProbes.Provider.AddProbe(string! name) -> DynamicProbes.Probe
+DynamicProbes.Provider.AddProbe<T1, T2, T3, T4, T5, T6>(string! name) -> DynamicProbes.Probe<T1, T2, T3, T4, T5, T6>
+DynamicProbes.Provider.AddProbe<T1, T2, T3, T4, T5>(string! name) -> DynamicProbes.Probe<T1, T2, T3, T4, T5>
+DynamicProbes.Provider.AddProbe<T1, T2, T3, T4>(string! name) -> DynamicProbes.Probe<T1, T2, T3, T4>
+DynamicProbes.Provider.AddProbe<T1, T2, T3>(string! name) -> DynamicProbes.Probe<T1, T2, T3>
+DynamicProbes.Provider.AddProbe<T1, T2>(string! name) -> DynamicProbes.Probe<T1, T2>
+DynamicProbes.Provider.AddProbe<T>(string! name) -> DynamicProbes.Probe<T>
+DynamicProbes.UInt16Arg
+DynamicProbes.UInt16Arg.UInt16Arg() -> void
+DynamicProbes.UInt16Arg.UInt16Arg(ushort Value) -> void
+DynamicProbes.UInt16Arg.Value.get -> ushort
+DynamicProbes.UInt16Arg.Value.init -> void
+DynamicProbes.UInt32Arg
+DynamicProbes.UInt32Arg.UInt32Arg() -> void
+DynamicProbes.UInt32Arg.UInt32Arg(uint Value) -> void
+DynamicProbes.UInt32Arg.Value.get -> uint
+DynamicProbes.UInt32Arg.Value.init -> void
+DynamicProbes.UInt64Arg
+DynamicProbes.UInt64Arg.UInt64Arg() -> void
+DynamicProbes.UInt64Arg.UInt64Arg(ulong Value) -> void
+DynamicProbes.UInt64Arg.Value.get -> ulong
+DynamicProbes.UInt64Arg.Value.init -> void
+DynamicProbes.UInt8Arg
+DynamicProbes.UInt8Arg.UInt8Arg() -> void
+DynamicProbes.UInt8Arg.UInt8Arg(byte Value) -> void
+DynamicProbes.UInt8Arg.Value.get -> byte
+DynamicProbes.UInt8Arg.Value.init -> void
+override DynamicProbes.BoolArg.ToString() -> string!
+override DynamicProbes.Int16Arg.ToString() -> string!
+override DynamicProbes.Int32Arg.ToString() -> string!
+override DynamicProbes.Int64Arg.ToString() -> string!
+override DynamicProbes.Int8Arg.ToString() -> string!
+override DynamicProbes.Provider.ToString() -> string!
+override DynamicProbes.Provider.IsInvalid.get -> bool
+DynamicProbes.Provider.Name.get -> string!
+DynamicProbes.Provider.Load() -> DynamicProbes.ILoadedProvider!
+override DynamicProbes.UInt16Arg.ToString() -> string!
+override DynamicProbes.UInt32Arg.ToString() -> string!
+override DynamicProbes.UInt64Arg.ToString() -> string!
+override DynamicProbes.UInt8Arg.ToString() -> string!
+static DynamicProbes.BoolArg.ArgType.get -> DynamicProbes.ArgType
+static DynamicProbes.BoolArg.implicit operator DynamicProbes.BoolArg(bool value) -> DynamicProbes.BoolArg
+static DynamicProbes.Int16Arg.ArgType.get -> DynamicProbes.ArgType
+static DynamicProbes.Int16Arg.implicit operator DynamicProbes.Int16Arg(short value) -> DynamicProbes.Int16Arg
+static DynamicProbes.Int32Arg.ArgType.get -> DynamicProbes.ArgType
+static DynamicProbes.Int32Arg.implicit operator DynamicProbes.Int32Arg(int value) -> DynamicProbes.Int32Arg
+static DynamicProbes.Int64Arg.ArgType.get -> DynamicProbes.ArgType
+static DynamicProbes.Int64Arg.implicit operator DynamicProbes.Int64Arg(long value) -> DynamicProbes.Int64Arg
+static DynamicProbes.Int8Arg.ArgType.get -> DynamicProbes.ArgType
+static DynamicProbes.Int8Arg.implicit operator DynamicProbes.Int8Arg(sbyte value) -> DynamicProbes.Int8Arg
+static DynamicProbes.IntPtrArg.ArgType.get -> DynamicProbes.ArgType
+static DynamicProbes.IntPtrArg.implicit operator DynamicProbes.IntPtrArg(nint value) -> DynamicProbes.IntPtrArg
+static DynamicProbes.Provider.Init(string! name) -> DynamicProbes.Provider!
+DynamicProbes.ILoadedProvider
+DynamicProbes.ILoadedProvider.Unload() -> DynamicProbes.Provider!
+DynamicProbes.ProviderException
+DynamicProbes.ProviderException.ProviderException() -> void
+DynamicProbes.ProviderException.ProviderException(string? message) -> void
+DynamicProbes.ProviderException.ProviderException(string? message, System.Exception? inner) -> void
+DynamicProbes.IArgType
+DynamicProbes.IFireArgLong
+DynamicProbes.IFireArgLong.UncheckedValue.get -> long
+DynamicProbes.Probe
+DynamicProbes.Probe.Probe() -> void
+DynamicProbes.Probe.Name.get -> string!
+DynamicProbes.Probe.IsEnabled.get -> bool
+DynamicProbes.Probe.Fire() -> void
+DynamicProbes.Probe.Active.get -> DynamicProbes.Probe?
+override DynamicProbes.Probe.ToString() -> string!
+DynamicProbes.Probe<T>
+DynamicProbes.Probe<T>.Probe() -> void
+DynamicProbes.Probe<T>.Name.get -> string!
+DynamicProbes.Probe<T>.IsEnabled.get -> bool
+DynamicProbes.Probe<T>.Fire(T arg) -> void
+DynamicProbes.Probe<T>.Active.get -> DynamicProbes.Probe<T>?
+override DynamicProbes.Probe<T>.ToString() -> string!
+DynamicProbes.Probe<T1, T2>
+DynamicProbes.Probe<T1, T2>.Probe() -> void
+DynamicProbes.Probe<T1, T2>.Name.get -> string!
+DynamicProbes.Probe<T1, T2>.IsEnabled.get -> bool
+DynamicProbes.Probe<T1, T2>.Fire(T1 arg1, T2 arg2) -> void
+DynamicProbes.Probe<T1, T2>.Active.get -> DynamicProbes.Probe<T1, T2>?
+override DynamicProbes.Probe<T1, T2>.ToString() -> string!
+DynamicProbes.Probe<T1, T2, T3>
+DynamicProbes.Probe<T1, T2, T3>.Probe() -> void
+DynamicProbes.Probe<T1, T2, T3>.Name.get -> string!
+DynamicProbes.Probe<T1, T2, T3>.IsEnabled.get -> bool
+DynamicProbes.Probe<T1, T2, T3>.Fire(T1 arg1, T2 arg2, T3 arg3) -> void
+DynamicProbes.Probe<T1, T2, T3>.Active.get -> DynamicProbes.Probe<T1, T2, T3>?
+override DynamicProbes.Probe<T1, T2, T3>.ToString() -> string!
+DynamicProbes.Probe<T1, T2, T3, T4>
+DynamicProbes.Probe<T1, T2, T3, T4>.Probe() -> void
+DynamicProbes.Probe<T1, T2, T3, T4>.Name.get -> string!
+DynamicProbes.Probe<T1, T2, T3, T4>.IsEnabled.get -> bool
+DynamicProbes.Probe<T1, T2, T3, T4>.Fire(T1 arg1, T2 arg2, T3 arg3, T4 arg4) -> void
+DynamicProbes.Probe<T1, T2, T3, T4>.Active.get -> DynamicProbes.Probe<T1, T2, T3, T4>?
+override DynamicProbes.Probe<T1, T2, T3, T4>.ToString() -> string!
+DynamicProbes.Probe<T1, T2, T3, T4, T5>
+DynamicProbes.Probe<T1, T2, T3, T4, T5>.Probe() -> void
+DynamicProbes.Probe<T1, T2, T3, T4, T5>.Name.get -> string!
+DynamicProbes.Probe<T1, T2, T3, T4, T5>.IsEnabled.get -> bool
+DynamicProbes.Probe<T1, T2, T3, T4, T5>.Fire(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5) -> void
+DynamicProbes.Probe<T1, T2, T3, T4, T5>.Active.get -> DynamicProbes.Probe<T1, T2, T3, T4, T5>?
+override DynamicProbes.Probe<T1, T2, T3, T4, T5>.ToString() -> string!
+DynamicProbes.Probe<T1, T2, T3, T4, T5, T6>
+DynamicProbes.Probe<T1, T2, T3, T4, T5, T6>.Probe() -> void
+DynamicProbes.Probe<T1, T2, T3, T4, T5, T6>.Name.get -> string!
+DynamicProbes.Probe<T1, T2, T3, T4, T5, T6>.IsEnabled.get -> bool
+DynamicProbes.Probe<T1, T2, T3, T4, T5, T6>.Fire(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6) -> void
+DynamicProbes.Probe<T1, T2, T3, T4, T5, T6>.Active.get -> DynamicProbes.Probe<T1, T2, T3, T4, T5, T6>?
+override DynamicProbes.Probe<T1, T2, T3, T4, T5, T6>.ToString() -> string!
+DynamicProbes.ArgType
+DynamicProbes.ArgType.NoArg = 0 -> DynamicProbes.ArgType
+DynamicProbes.ArgType.UInt8 = 1 -> DynamicProbes.ArgType
+DynamicProbes.ArgType.Int8 = -1 -> DynamicProbes.ArgType
+DynamicProbes.ArgType.UInt16 = 2 -> DynamicProbes.ArgType
+DynamicProbes.ArgType.Int16 = -2 -> DynamicProbes.ArgType
+DynamicProbes.ArgType.UInt32 = 4 -> DynamicProbes.ArgType
+DynamicProbes.ArgType.Int32 = -4 -> DynamicProbes.ArgType
+DynamicProbes.ArgType.UInt64 = 8 -> DynamicProbes.ArgType
+DynamicProbes.ArgType.Int64 = -8 -> DynamicProbes.ArgType
+static DynamicProbes.UInt16Arg.ArgType.get -> DynamicProbes.ArgType
+static DynamicProbes.UInt16Arg.implicit operator DynamicProbes.UInt16Arg(ushort value) -> DynamicProbes.UInt16Arg
+static DynamicProbes.UInt32Arg.ArgType.get -> DynamicProbes.ArgType
+static DynamicProbes.UInt32Arg.implicit operator DynamicProbes.UInt32Arg(uint value) -> DynamicProbes.UInt32Arg
+static DynamicProbes.UInt64Arg.ArgType.get -> DynamicProbes.ArgType
+static DynamicProbes.UInt64Arg.implicit operator DynamicProbes.UInt64Arg(ulong value) -> DynamicProbes.UInt64Arg
+static DynamicProbes.UInt8Arg.ArgType.get -> DynamicProbes.ArgType
+static DynamicProbes.UInt8Arg.implicit operator DynamicProbes.UInt8Arg(byte value) -> DynamicProbes.UInt8Arg
