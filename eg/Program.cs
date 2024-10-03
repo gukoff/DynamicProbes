@@ -12,7 +12,7 @@ try
 
     using var provider = Provider.Init(providerName);
 
-    //Libstapsdt.Libstapsdt.ProviderUseMemfd(ref provider, MemFDOption_t.MemfdEnabled);
+    // _ = Libstapsdt.ProviderUseMemfd(provider, MemfdOption.Enabled);
 
     var probe = provider.AddProbe<Int64Arg, IntPtrArg>(probeName);
     _ = provider.Load();

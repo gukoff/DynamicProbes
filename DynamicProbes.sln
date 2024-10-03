@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benchmark", "benchmark\Benchmark.csproj", "{2F9E49F9-1B8C-4170-8FF1-313BEF57D91C}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "tests\UnitTests\UnitTests.csproj", "{C530FC8B-FA78-40E7-881E-3EDF52EEB59E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicProbesDemo", "eg\DynamicProbesDemo.csproj", "{D11BF120-04A6-434D-A19E-5CD19D6ABFD6}"
@@ -28,6 +30,10 @@ Global
 		{1B1F3A57-1538-4C11-ABD8-7024A4ABA2A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B1F3A57-1538-4C11-ABD8-7024A4ABA2A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B1F3A57-1538-4C11-ABD8-7024A4ABA2A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F9E49F9-1B8C-4170-8FF1-313BEF57D91C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F9E49F9-1B8C-4170-8FF1-313BEF57D91C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F9E49F9-1B8C-4170-8FF1-313BEF57D91C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F9E49F9-1B8C-4170-8FF1-313BEF57D91C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C530FC8B-FA78-40E7-881E-3EDF52EEB59E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C530FC8B-FA78-40E7-881E-3EDF52EEB59E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C530FC8B-FA78-40E7-881E-3EDF52EEB59E}.Release|Any CPU.ActiveCfg = Release|Any CPU
