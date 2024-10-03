@@ -10,7 +10,7 @@ on:
 
 jobs:
   ci:
-    name: Checkout the caches
+    name: Verify generated source code
     runs-on: ubuntu-latest
     steps:
       - name: Checkout DynamicProbes repo
@@ -24,11 +24,11 @@ jobs:
       - name: Build the project
         run: dotnet build --project src
 
-    - name: Check Uncommitted Changes
-      shell: pwsh
-      run: |
-        $diff = git diff --ignore-all-space --exit-code 2>&1
-        $diff | % { if ($_ -is [string]) { $_ } else { [string]$_ } } | echo
-        if ($LASTEXITCODE -ne 0) {
-            throw "New code was generated during build that's not been committed."
-        }
+      - name: Check Uncommitted Changes
+        shell: pwsh
+        run: |
+          $diff = git diff --ignore-all-space --exit-code 2>&1
+          $diff | % { if ($_ -is [string]) { $_ } else { [string]$_ } } | echo
+          if ($LASTEXITCODE -ne 0) {
+              throw "New code was generated during build that's not been committed."
+          }
