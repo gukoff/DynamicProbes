@@ -16,9 +16,9 @@
     <CompilerGeneratedFilesOutputPath>$(GeneratedFolder)/$(TargetFramework)</CompilerGeneratedFilesOutputPath>
   </PropertyGroup>
 
-<ItemGroup>
+  <ItemGroup>
     <!-- Exclude the output of source generators from the compilation to avoid the ambiguous definition errors (CS0121) -->
     <Compile Remove="$(GeneratedFolder)/**/*.cs" />
-</ItemGroup>
+  </ItemGroup>
 
 </Project>
