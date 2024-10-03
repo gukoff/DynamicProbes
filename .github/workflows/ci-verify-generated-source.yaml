@@ -23,18 +23,6 @@ jobs:
 
       - name: Build the project
         run: dotnet build --project src
-      
-      - name: Verify there are no changes to the generated source files
-        shell: bash
-        run: |
-          set -euxo pipefail
-
-        $diff = git diff --ignore-all-space --exit-code 2>&1
-        $diff | % { if ($_ -is [string]) { $_ } else { [string]$_ } } | echo
-        if ($LASTEXITCODE -ne 0) {
-            throw "New code was generated during build that's not been committed."
-        }
-        dotnet build --project src
 
     - name: Check Uncommitted Changes
       shell: pwsh
