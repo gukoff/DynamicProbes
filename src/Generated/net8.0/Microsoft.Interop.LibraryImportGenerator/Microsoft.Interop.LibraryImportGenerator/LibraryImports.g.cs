@@ -30,7 +30,6 @@ namespace LibstapsdtPinvokes
             return __retVal;
             // Local P/Invoke
             [global::System.Runtime.InteropServices.DllImportAttribute("libstapsdt.so.0", EntryPoint = "providerInit", ExactSpelling = true)]
-            [global::System.Runtime.InteropServices.UnmanagedCallConvAttribute(CallConvs = new global::System.Type[] { typeof(global::System.Runtime.CompilerServices.CallConvCdecl) })]
             static extern unsafe nint __PInvoke(byte* __name_native);
         }
     }
@@ -74,7 +73,6 @@ namespace LibstapsdtPinvokes
             return __retVal;
             // Local P/Invoke
             [global::System.Runtime.InteropServices.DllImportAttribute("libstapsdt.so.0", EntryPoint = "providerAddProbe", ExactSpelling = true)]
-            [global::System.Runtime.InteropServices.UnmanagedCallConvAttribute(CallConvs = new global::System.Type[] { typeof(global::System.Runtime.CompilerServices.CallConvCdecl) })]
             static extern unsafe nint __PInvoke(nint __provider_native, byte* __name_native, int __argCount_native, global::LibstapsdtPinvokes.ArgType __arg1_native);
         }
     }
@@ -110,7 +108,6 @@ namespace LibstapsdtPinvokes
             return __retVal;
             // Local P/Invoke
             [global::System.Runtime.InteropServices.DllImportAttribute("libstapsdt.so.0", EntryPoint = "providerAddProbe", ExactSpelling = true)]
-            [global::System.Runtime.InteropServices.UnmanagedCallConvAttribute(CallConvs = new global::System.Type[] { typeof(global::System.Runtime.CompilerServices.CallConvCdecl) })]
             static extern unsafe nint __PInvoke(nint __provider_native, byte* __name_native, int __argCount_native, global::LibstapsdtPinvokes.ArgType __arg1_native, global::LibstapsdtPinvokes.ArgType __arg2_native);
         }
     }
@@ -146,7 +143,6 @@ namespace LibstapsdtPinvokes
             return __retVal;
             // Local P/Invoke
             [global::System.Runtime.InteropServices.DllImportAttribute("libstapsdt.so.0", EntryPoint = "providerAddProbe", ExactSpelling = true)]
-            [global::System.Runtime.InteropServices.UnmanagedCallConvAttribute(CallConvs = new global::System.Type[] { typeof(global::System.Runtime.CompilerServices.CallConvCdecl) })]
             static extern unsafe nint __PInvoke(nint __provider_native, byte* __name_native, int __argCount_native, global::LibstapsdtPinvokes.ArgType __arg1_native, global::LibstapsdtPinvokes.ArgType __arg2_native, global::LibstapsdtPinvokes.ArgType __arg3_native);
         }
     }
@@ -182,7 +178,6 @@ namespace LibstapsdtPinvokes
             return __retVal;
             // Local P/Invoke
             [global::System.Runtime.InteropServices.DllImportAttribute("libstapsdt.so.0", EntryPoint = "providerAddProbe", ExactSpelling = true)]
-            [global::System.Runtime.InteropServices.UnmanagedCallConvAttribute(CallConvs = new global::System.Type[] { typeof(global::System.Runtime.CompilerServices.CallConvCdecl) })]
             static extern unsafe nint __PInvoke(nint __provider_native, byte* __name_native, int __argCount_native, global::LibstapsdtPinvokes.ArgType __arg1_native, global::LibstapsdtPinvokes.ArgType __arg2_native, global::LibstapsdtPinvokes.ArgType __arg3_native, global::LibstapsdtPinvokes.ArgType __arg4_native);
         }
     }
@@ -218,7 +213,6 @@ namespace LibstapsdtPinvokes
             return __retVal;
             // Local P/Invoke
             [global::System.Runtime.InteropServices.DllImportAttribute("libstapsdt.so.0", EntryPoint = "providerAddProbe", ExactSpelling = true)]
-            [global::System.Runtime.InteropServices.UnmanagedCallConvAttribute(CallConvs = new global::System.Type[] { typeof(global::System.Runtime.CompilerServices.CallConvCdecl) })]
             static extern unsafe nint __PInvoke(nint __provider_native, byte* __name_native, int __argCount_native, global::LibstapsdtPinvokes.ArgType __arg1_native, global::LibstapsdtPinvokes.ArgType __arg2_native, global::LibstapsdtPinvokes.ArgType __arg3_native, global::LibstapsdtPinvokes.ArgType __arg4_native, global::LibstapsdtPinvokes.ArgType __arg5_native);
         }
     }
@@ -254,7 +248,6 @@ namespace LibstapsdtPinvokes
             return __retVal;
             // Local P/Invoke
             [global::System.Runtime.InteropServices.DllImportAttribute("libstapsdt.so.0", EntryPoint = "providerAddProbe", ExactSpelling = true)]
-            [global::System.Runtime.InteropServices.UnmanagedCallConvAttribute(CallConvs = new global::System.Type[] { typeof(global::System.Runtime.CompilerServices.CallConvCdecl) })]
             static extern unsafe nint __PInvoke(nint __provider_native, byte* __name_native, int __argCount_native, global::LibstapsdtPinvokes.ArgType __arg1_native, global::LibstapsdtPinvokes.ArgType __arg2_native, global::LibstapsdtPinvokes.ArgType __arg3_native, global::LibstapsdtPinvokes.ArgType __arg4_native, global::LibstapsdtPinvokes.ArgType __arg5_native, global::LibstapsdtPinvokes.ArgType __arg6_native);
         }
     }
@@ -358,7 +351,6 @@ namespace LibstapsdtPinvokes
             return __retVal;
             // Local P/Invoke
             [global::System.Runtime.InteropServices.DllImportAttribute("libstapsdt.so.0", EntryPoint = "probeIsEnabled", ExactSpelling = true)]
-            [global::System.Runtime.InteropServices.UnmanagedCallConvAttribute(CallConvs = new global::System.Type[] { typeof(global::System.Runtime.CompilerServices.CallConvCdecl) })]
             static extern unsafe int __PInvoke(nint __probe_native);
         }
     }
