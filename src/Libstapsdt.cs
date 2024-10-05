@@ -19,11 +19,9 @@ public static partial class Libstapsdt
 
     // P/Invoke function declarations
     [LibraryImport(LibstapsdtLibrary, EntryPoint = "providerInit", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SdtProviderPtr ProviderInit(string name);
 
     [LibraryImport(LibstapsdtLibrary, EntryPoint = "providerUseMemfd")]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int ProviderUseMemfd(SdtProviderPtr provider, MemfdOption option);
 
     // Overloads for providerAddProbe for different argument counts
@@ -47,73 +45,56 @@ public static partial class Libstapsdt
         ProviderAddProbe(provider, name, 6, arg1, arg2, arg3, arg4, arg5, arg6);
 
     [LibraryImport(LibstapsdtLibrary, EntryPoint = "providerAddProbe", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     private static partial ProbePtr ProviderAddProbe(SdtProviderPtr provider, string name, int argCount, ArgType arg1);
 
     [LibraryImport(LibstapsdtLibrary, EntryPoint = "providerAddProbe", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     private static partial ProbePtr ProviderAddProbe(SdtProviderPtr provider, string name, int argCount, ArgType arg1, ArgType arg2);
 
     [LibraryImport(LibstapsdtLibrary, EntryPoint = "providerAddProbe", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     private static partial ProbePtr ProviderAddProbe(SdtProviderPtr provider, string name, int argCount, ArgType arg1, ArgType arg2, ArgType arg3);
 
     [LibraryImport(LibstapsdtLibrary, EntryPoint = "providerAddProbe", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     private static partial ProbePtr ProviderAddProbe(SdtProviderPtr provider, string name, int argCount, ArgType arg1, ArgType arg2, ArgType arg3, ArgType arg4);
 
     [LibraryImport(LibstapsdtLibrary, EntryPoint = "providerAddProbe", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     private static partial ProbePtr ProviderAddProbe(SdtProviderPtr provider, string name, int argCount, ArgType arg1, ArgType arg2, ArgType arg3, ArgType arg4, ArgType arg5);
 
     [LibraryImport(LibstapsdtLibrary, EntryPoint = "providerAddProbe", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     private static partial ProbePtr ProviderAddProbe(SdtProviderPtr provider, string name, int argCount, ArgType arg1, ArgType arg2, ArgType arg3, ArgType arg4, ArgType arg5, ArgType arg6);
 
     [LibraryImport(LibstapsdtLibrary, EntryPoint = "providerLoad")]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int ProviderLoad(SdtProviderPtr provider);  // return -1 on error, 0 on success
 
     [LibraryImport(LibstapsdtLibrary, EntryPoint = "providerUnload")]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int ProviderUnload(SdtProviderPtr provider);  // return -1 on error, 0 on success
 
     [LibraryImport(LibstapsdtLibrary, EntryPoint = "providerDestroy")]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void ProviderDestroy(SdtProviderPtr provider);
 
     // Overloads for probeFire for different argument counts
 
     [LibraryImport(LibstapsdtLibrary, EntryPoint = "probeFire")]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void ProbeFire(ProbePtr probe);
 
     [LibraryImport(LibstapsdtLibrary, EntryPoint = "probeFire")]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void ProbeFire(ProbePtr probe, long arg1);
 
     [LibraryImport(LibstapsdtLibrary, EntryPoint = "probeFire")]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void ProbeFire(ProbePtr probe, long arg1, long arg2);
 
     [LibraryImport(LibstapsdtLibrary, EntryPoint = "probeFire")]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void ProbeFire(ProbePtr probe, long arg1, long arg2, long arg3);
 
     [LibraryImport(LibstapsdtLibrary, EntryPoint = "probeFire")]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void ProbeFire(ProbePtr probe, long arg1, long arg2, long arg3, long arg4);
 
     [LibraryImport(LibstapsdtLibrary, EntryPoint = "probeFire")]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void ProbeFire(ProbePtr probe, long arg1, long arg2, long arg3, long arg4, long arg5);
 
     [LibraryImport(LibstapsdtLibrary, EntryPoint = "probeFire")]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void ProbeFire(ProbePtr probe, long arg1, long arg2, long arg3, long arg4, long arg5, long arg6);
 
     [LibraryImport(LibstapsdtLibrary, EntryPoint = "probeIsEnabled")]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.Bool)]
     public static partial bool ProbeIsEnabled(ProbePtr probe);  // return 1 if true, 0 if false
 }
